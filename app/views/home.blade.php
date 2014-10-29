@@ -37,8 +37,16 @@
 <div class="row">
     <div class="col-sm-8 col-sm-offset-2">
         <h2>Quote of the day</h2>
-        <p>some quote</p>
-        <p>some other quote</p>
+        <?php
+            $f_contents = file(public_path() . "/quotes.txt");
+            $line = $f_contents[array_rand($f_contents)];
+            echo('<span id="quote-of-the-day">
+                    <i class="fa fa-quote-left fa-2x" id="left-quote"></i>
+                    <br />
+                    <p>' . $line . '</p>
+                    <i class="fa fa-quote-right fa-2x" id="right-quote"></i>
+                </span>');
+         ?>
     </div>
 </div>
 @stop

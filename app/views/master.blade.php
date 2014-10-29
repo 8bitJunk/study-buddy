@@ -3,6 +3,7 @@
     <head>
         <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
         <link rel="stylesheet" href="/css/style.css">
+        <link rel="stylesheet" href="/css/font-awesome.min.css">
         <title> Study Buddy </title>
 
         {{ HTML::script('js/jquery.js') }}

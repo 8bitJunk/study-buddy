@@ -76,3 +76,32 @@ hr.menu-separator {
 #preview-link {
     padding-left: 2em;
 }
+
+/*==================== Styling for quote of the day ====================*/
+
+#right-quote {
+    float: right;
+    font-style: italic;
+}
+
+#left-quote {
+    float: left;
+    font-style: italic;
+}
+
+#quote-of-the-day p {
+    font-size: 16pt;
+    font-family: serif;
+    font-style: italic;
+    text-align: center;
+    margin: 1em;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+/*
+#quote-of-the-day p::first-letter {
+    font-size: 18pt;
+    font-weight: bold;
+}
+*/
