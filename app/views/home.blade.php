@@ -38,6 +38,7 @@
     <div class="col-sm-8 col-sm-offset-2">
         <h2>Quote of the day</h2>
         <p>some quote</p>
+        <p>some other quote</p>
     </div>
 </div>
 @stop
