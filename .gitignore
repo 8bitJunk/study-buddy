@@ -1,6 +1,5 @@
 /bootstrap/compiled.php
-/public/module_materials
-# /vendor
+/vendor
 composer.phar
 composer.lock
 .env.*.php
@@ -9,5 +8,6 @@ composer.lock
 Thumbs.db
 
 .elasticbeanstalk/
+/public/module_materials
 
 
