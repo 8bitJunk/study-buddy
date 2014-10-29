@@ -1,0 +1,78 @@
+body {
+    font-family: sans-serif;
+}
+
+a:focus{
+    outline: 0;
+}
+
+.btn:focus {
+    outline: 0;
+}
+
+h2 {
+    margin-top: 0px;
+}
+
+.global-menu ul{
+    background-color: #DDD;
+}
+
+.form-signin {
+    margin-top: 20%;
+}
+
+hr.menu-separator {
+    border: 0;
+    height: 1px;
+    background: #BBB;
+    background-image: -webkit-linear-gradient(left, #BBB, #BBB, #BBB);
+    background-image: -o-linear-gradient(left, #BBB, #BBB, #BBB);
+    background-image: linear-gradient(to right, #BBB, #BBB, #BBB);
+}
+
+.content {
+    padding-top: 70px;
+}
+
+.user-button {
+    padding-top: 8px
+}
+
+.navbar {
+    min-width: 300px;
+}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height:  100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+.module-description {
+    background-color: #DDD;
+}
+
+.error {
+    background-color: rgb(255, 190, 190);
+}
+
+
+#preview-link {
+    padding-left: 2em;
+}

@@ -1,0 +1,24 @@
+<div class="row">
+    <div class="col-sm-12">
+        <h2>Public Notes
+            <!-- Searchbar -->
+            <div class="input-group pull-right col-sm-4">
+                <input type="text" id="note-search" class="form-control" placeholder="Search titles...">
+                <span class="input-group-btn">
+                    <button class="btn btn-primary" id="note-search-button" type="button"><i class="glyphicon glyphicon-search"></i></button>
+                </span>
+            </div>
+        </h2>
+        @foreach ($publicNotes as $publicNote)
+            <div class="panel panel-default">
+                <div class="panel-heading public-note-head">
+                    {{{$publicNote->note_title}}}
+                    <i class="glyphicon glyphicon-chevron-up pull-right"></i>
+                </div>
+                <div class="panel-body public-note-body">
+                    <pre>{{{$publicNote->note_body}}}</pre>
+                </div>
+            </div>
+        @endforeach
+    </div>
+</div>
