@@ -35,6 +35,9 @@
             {{ Form::textarea('noteBody', '', ['disabled', 'class'=>'form-control', 'id'=>'noteBody', 'placeholder' => 'Note Body']) }} <br>
             {{ Form::input('text', 'noteTags', '', ['disabled', 'class'=>'form-control', 'id'=>'noteTags', 'placeholder' => 'Tags...']) }} <br>
             {{ Form::hidden('noteID', '', ['id' => 'noteID']) }}
+
+            <span class="pull-right"><h4>Make public <input type="checkbox" id="isPublic" name="isPublic" value="Public" disabled></h4></span>
+            <br />
             {{ Form::submit('Save', array('class' => 'btn btn-lg btn-primary btn-block', 'disabled', 'id' => 'note-save')) }}
         {{ Form::close() }}
         <button id="new-note-save" class="btn btn-primary btn-lg btn-block">Create</button>
