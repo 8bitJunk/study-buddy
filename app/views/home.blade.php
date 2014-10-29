@@ -37,7 +37,7 @@
 <div class="row">
     <div class="col-sm-8 col-sm-offset-2">
         <h2>Quote of the day</h2>
-        
+        <p>some quote</p>
     </div>
 </div>
 @stop
