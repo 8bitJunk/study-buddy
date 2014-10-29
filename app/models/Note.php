@@ -21,8 +21,11 @@ class Note extends Eloquent implements UserInterface, RemindableInterface {
     //     return 'Hello there';
     // }
 
-
     public function module() {
         return $this->belongsTo('Module');
+    }
+
+    public function vote() {
+        return $this->hasMany('Vote');
     }
 }
