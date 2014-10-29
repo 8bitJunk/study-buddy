@@ -133,7 +133,8 @@
                     data: {
                         note_title: $('#noteTitle').val(), 
                         note_body: $('#noteBody').val(),
-                        note_tags: $('#noteTags').val()
+                        note_tags: $('#noteTags').val(),
+                        is_public: $('#checkbox').prop('checked')
                     },
 
                     //console.log(data);
@@ -161,6 +162,7 @@
                 $('#note-form input[name = "noteTitle"]').removeAttr('disabled').focus();
                 $('#note-form textarea[name = "noteBody"]').removeAttr('disabled');
                 $('#note-form input[name = "noteTags"]').removeAttr('disabled');
+                $('#note-form input[name = "isPublic"]').removeAttr('disabled');
                 $('#note-save').removeAttr('disabled');
 
                 // unhide the delete button and hide this button
@@ -175,6 +177,7 @@
                 $('#note-form input[name = "noteTitle"]').removeAttr('disabled').focus().val('');
                 $('#note-form textarea[name = "noteBody"]').removeAttr('disabled').val('');
                 $('#note-form input[name = "noteTags"]').removeAttr('disabled').val('');
+                $('#note-form input[name = "isPublic"]').removeAttr('disabled').prop('checked', false);
                 $('#note-save').hide();
                 $('#new-note-save').show();
                 $('#edit-button').hide();
@@ -198,8 +201,8 @@
                         note_title: $('#noteTitle').val(), 
                         note_body: $('#noteBody').val(),
                         note_tags: $('#noteTags').val(),
+                        is_public: $('#isPublic').prop('checked'),
                         module_id: moduleID,
-                        is_public: 0,
                         user_id: userID
                     },
 
@@ -221,6 +224,7 @@
                             $('#note-form input[name = "noteTitle"]').prop('disabled', true);
                             $('#note-form textarea[name = "noteBody"]').prop('disabled', true);
                             $('#note-form input[name = "noteTags"]').prop('disabled', true);
+                            $('#note-form input[name = "isPublic"]').prop('disabled', true);
                             // get the note id and insert into form, allows user to edit
                             $('#note-form input[name="noteID"]').val(json['id']);
                             $('#new-note-save').hide();
@@ -265,6 +269,8 @@
                             $('#note-form input[name = "noteTitle"]').val('').prop('disabled', true);
                             $('#note-form textarea[name = "noteBody"]').val('').prop('disabled', true);
                             $('#note-form input[name = "noteTags"]').val('').prop('disabled', true);
+                            $('#note-form input[name = "isPublic"]').prop('checked', false).prop('disabled', true);
+
                             $('#new-note-save').hide();
                             $('#note-save').show();
                             $('#edit-button').hide();
