@@ -11,6 +11,7 @@ class ModuleController extends \BaseController {
         $recentMaterials = $module->materials()->orderBy('created_at', 'desc')->get();
         $publicNotes = $notes = Note::where('is_public', '=', true)
                         ->where('module_id', '=', $id)
+                        ->orderBy('updated_at', 'DESC')
                         ->get();
 
         return View::make('module/module', compact('module', 'teachersInformation', 'recentMaterials', 'publicNotes'));
