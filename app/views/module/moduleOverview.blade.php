@@ -312,11 +312,15 @@
                             $('#note-form input[name = "noteTags"]').val('').prop('disabled', true);
                             $('#note-form input[name = "isPublic"]').prop('checked', false).prop('disabled', true);
 
+                            // hide/show correct buttons
                             $('#new-note-save').hide();
                             $('#note-save').show();
                             $('#edit-button').hide();
                             $('#note-heading').text('Select Note');
-                        }
+
+                            // remove from public notes
+                            $('div[data-id = "' + id + '"]').remove();
+                        } // end success function
                     });
                 }
             });
