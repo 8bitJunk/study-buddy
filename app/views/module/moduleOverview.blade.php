@@ -249,6 +249,12 @@
                             .prependTo('#note-list')
                             .slideDown();
 
+                        // show edit button
+                        $('#edit-button').show();
+
+                        // change title
+                        $('#note-heading').text('Edit Note');
+
                         // if it is public add it to public note list
                         if (json.is_public == 1) {
                             var $newElem = ' \
@@ -269,7 +275,7 @@
                             $('.public-note-body').hide();
                         } else {
                             $('div[data-id = "' + json['id'] + '"]').remove();
-                        }
+                        }    
 
 
                         // disable form
@@ -309,10 +315,10 @@
                                 $(this).remove();
                             });
 
-                            // // hide this button
+                            //hide this button
                             $this.hide();
 
-                            // //show the edit button
+                            //show the edit button
                             $('#edit-button').show();
 
                             // show blank, disabled note form
