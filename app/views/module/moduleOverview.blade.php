@@ -220,8 +220,6 @@
             $('#new-note-save').click(function(e) {
                 e.preventDefault();
 
-                // var url = decodeURI("{{ URL::route('note.store') }}");
-
                 var $this = $(this);
 
                 $.ajax({
@@ -309,7 +307,6 @@
                         success: function(id) {
                             console.log('success');
 
-
                             // remove from note-list
                             $('a[data-id = "' + id + '"]').parent().slideUp(500, function() {
                                 $(this).remove();
@@ -335,7 +332,7 @@
 
                             // remove from public notes
                             $('div[data-id = "' + id + '"]').remove();
-                        } // end success function
+                        }
                     });
                 }
             });
@@ -345,10 +342,9 @@
                 e.preventDefault();
 
                 var url = decodeURI("{{ URL::route('note.search') }}");
-                var $this = $(this);
+                url = url.replace('{id}', {{$module->id}});
 
-                var moduleID = {{$module->id}};
-                url = url.replace('{id}', moduleID);
+                var $this = $(this);
 
                 $.ajax({
                     type: "POST",
@@ -358,14 +354,13 @@
                     },
                     datatype: 'json',
 
-                    //console.log(data);
                     success: function (json) {
-
                         // clear list ready to add new items
                         $("#note-search-results").empty();
+                        //show empty list
                         $('#note-search-results').show();
 
-                        
+                        // add notes to the list
                         $.each(json, function(){
                             $('<li class="list-group-item"><a href="#" data-id="'+this["id"]+'" class="note-loader"> '+this["note_title"]+' </a></li>')
                                 .prependTo('#note-search-results');
@@ -388,7 +383,7 @@
                 $(this).children().children('.public-note-icon').toggleClass("glyphicon glyphicon-chevron-down glyphicon glyphicon-chevron-up");
             });
 
-            // make :contains insensitive
+            // make ':contains' insensitive
             $.expr[":"].contains = $.expr.createPseudo(function(arg) {
                 return function( elem ) {
                     return $(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
