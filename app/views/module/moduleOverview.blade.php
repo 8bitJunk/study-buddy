@@ -366,7 +366,7 @@
 
                     });
                 }
-                $(this).children('.public-note-icon').toggleClass("glyphicon glyphicon-chevron-down glyphicon glyphicon-chevron-up");
+                $(this).children().children('.public-note-icon').toggleClass("glyphicon glyphicon-chevron-down glyphicon glyphicon-chevron-up");
             });
             
             // Used to display PDF in modal
