@@ -43,7 +43,7 @@
             echo('<span id="quote-of-the-day">
                     <i class="fa fa-quote-left fa-2x" id="left-quote"></i>
                     <br />
-                    <p>' . $line . '</p>
+                    <p>' . htmlentities($line) . '</p>
                     <i class="fa fa-quote-right fa-2x" id="right-quote"></i>
                 </span>');
          ?>
