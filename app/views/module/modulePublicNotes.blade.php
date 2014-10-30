@@ -4,9 +4,7 @@
             <!-- Searchbar -->
             <div class="input-group pull-right col-sm-4">
                 <input type="text" id="public-note-search" class="form-control" placeholder="Search titles...">
-                <span class="input-group-btn">
-                    <button class="btn btn-primary" id="note-search-button" type="button"><i class="glyphicon glyphicon-search"></i></button>
-                </span>
+                <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
             </div>
         </h2>
         <div class="public-note-container">
