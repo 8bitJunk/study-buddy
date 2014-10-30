@@ -9,16 +9,18 @@
                 </span>
             </div>
         </h2>
-        @foreach ($publicNotes as $publicNote)
-            <div class="panel panel-default">
-                <div class="panel-heading public-note-head">
-                    {{{$publicNote->note_title}}}
-                    <i class="glyphicon glyphicon-chevron-up pull-right"></i>
+        <div class="public-note-container">
+            @foreach ($publicNotes as $publicNote)
+                <div class="panel panel-default">
+                    <div class="panel-heading public-note-head">
+                        {{{$publicNote->note_title}}}
+                        <i class="glyphicon glyphicon-chevron-up pull-right"></i>
+                    </div>
+                    <div class="panel-body public-note-body">
+                        <pre>{{{$publicNote->note_body}}}</pre>
+                    </div>
                 </div>
-                <div class="panel-body public-note-body">
-                    <pre>{{{$publicNote->note_body}}}</pre>
-                </div>
-            </div>
-        @endforeach
+            @endforeach
+        </div>
     </div>
 </div>

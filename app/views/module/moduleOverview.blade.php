@@ -145,7 +145,8 @@
 
                     //console.log(data);
                     success: function (json) {
-                        // update the parent form elements based on the json
+                        // update note list title
+                        $('a[data-id = "' + json['id'] + '"]').text(json['note_title']);
 
                         // then make the form uneditable
                         $this
@@ -153,13 +154,28 @@
                             .find(':input')
                             .attr('disabled', true);
 
-                        // update note list title
-                        $('a[data-id = "' + json['id'] + '"]').text(json['note_title']);
 
                         // change delete button for edit button
                         $('#edit-button').show();
                         $('#delete-button').hide();
                         $('#note-heading').text('Edit Note');
+
+                        // if it is public add it to public note list
+                        if (json.is_public) {
+                            var $newElem = ' \
+                                <div class="panel panel-default"> \
+                                    <div class="panel-heading public-note-head"> \
+                                        ' + json.note_title +' \
+                                        <i class="glyphicon glyphicon-chevron-up pull-right"></i> \
+                                    </div> \
+                                    <div class="panel-body public-note-body"> \
+                                        <pre>' + json.note_body + '</pre> \
+                                    </div> \
+                                </div> \
+                            ';
+                            $($newElem).prependTo('.public-note-container');
+                            $('.public-note-body').hide();
+                        }
                     }
                 });
             });
@@ -226,16 +242,34 @@
                             .prependTo('#note-list')
                             .slideDown();
 
-                            // disable form
-                            $('#note-form input[name = "noteTitle"]').prop('disabled', true);
-                            $('#note-form textarea[name = "noteBody"]').prop('disabled', true);
-                            $('#note-form input[name = "noteTags"]').prop('disabled', true);
-                            $('#note-form input[name = "isPublic"]').prop('disabled', true);
+                        // if it is public add it to public note list
+                        if (json.is_public) {
+                            var $newElem = ' \
+                                <div class="panel panel-default"> \
+                                    <div class="panel-heading public-note-head"> \
+                                        ' + json.note_title +' \
+                                        <i class="glyphicon glyphicon-chevron-up pull-right"></i> \
+                                    </div> \
+                                    <div class="panel-body public-note-body"> \
+                                        <pre>' + json.note_body + '</pre> \
+                                    </div> \
+                                </div> \
+                            ';
+                            $($newElem).prependTo('.public-note-container');
+                            $('.public-note-body').hide();
+                        }
 
-                            // get the note id and insert into form, allows user to edit
-                            $('#note-form input[name="noteID"]').val(json['id']);
-                            $('#new-note-save').hide();
-                            $('#note-save').show();
+
+                        // disable form
+                        $('#note-form input[name = "noteTitle"]').prop('disabled', true);
+                        $('#note-form textarea[name = "noteBody"]').prop('disabled', true);
+                        $('#note-form input[name = "noteTags"]').prop('disabled', true);
+                        $('#note-form input[name = "isPublic"]').prop('disabled', true);
+
+                        // get the note id and insert into form, allows user to edit
+                        $('#note-form input[name="noteID"]').val(json['id']);
+                        $('#new-note-save').hide();
+                        $('#note-save').show();
                     }
                 });
             });
@@ -317,12 +351,13 @@
                             $('<li class="list-group-item"><a href="#" data-id="'+this["id"]+'" class="note-loader"> '+this["note_title"]+' </a></li>')
                                 .prependTo('#note-search-results');
                         });
-                        $('<br />').prependTo('#note-search-results'); 
+                        $('<br />').prependTo('#note-search-results');
                     }
                 });
             });
 
-            $('.public-note-head').click(function() {
+            // expands note to show body
+            $('.public-note-container').on('click', '.public-note-head', function() {
                 $('.public-note-body').slideUp(400);
 
                 var isHidden = $(this).siblings().is( ":hidden" );
