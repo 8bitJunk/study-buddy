@@ -98,6 +98,11 @@
                     $('#noteBody').val(json.note_body);
                     $('#noteTags').val(json.note_tags);
                     $('#noteID').val(json.id);
+                    if (json.is_public) {
+                        $('#isPublic').prop('checked', true);
+                    } else {
+                        $('#isPublic').prop('checked', false);
+                    }
 
                     // disable fields
                     $('#note-form input[name = "noteTitle"]').prop('disabled', true);
