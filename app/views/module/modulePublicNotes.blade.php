@@ -3,7 +3,7 @@
         <h2>Public Notes
             <!-- Searchbar -->
             <div class="input-group pull-right col-sm-4">
-                <input type="text" id="note-search" class="form-control" placeholder="Search titles...">
+                <input type="text" id="public-note-search" class="form-control" placeholder="Search titles...">
                 <span class="input-group-btn">
                     <button class="btn btn-primary" id="note-search-button" type="button"><i class="glyphicon glyphicon-search"></i></button>
                 </span>
@@ -11,7 +11,7 @@
         </h2>
         <div class="public-note-container">
             @foreach ($publicNotes as $publicNote)
-                <div class="panel panel-default" data-id="{{$publicNote->id}}">
+                <div class="panel panel-default individual-public-note-container" data-id="{{$publicNote->id}}">
                     <div class="panel-heading public-note-head">
                         {{{$publicNote->note_title}}}
                         <span class="pull-right ">

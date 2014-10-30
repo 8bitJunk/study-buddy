@@ -372,6 +372,19 @@
                 }
                 $(this).children().children('.public-note-icon').toggleClass("glyphicon glyphicon-chevron-down glyphicon glyphicon-chevron-up");
             });
+
+            //search public notes
+            $('#public-note-search').on('propertychange keyup input paste', function() {
+                var searchTerm = $(this).val();
+                $('.individual-public-note-container').hide();
+
+                // hide everything that does not contain the search term
+                $('.public-note-head:contains("'+searchTerm+'")').parent().show();
+
+                if (searchTerm == "") {
+                    $('.individual-public-note-container').show();
+                }
+            });
             
             // Used to display PDF in modal
             $('#material-list').on('click', '#preview-link', function() {
