@@ -38,6 +38,9 @@ class NoteController extends \BaseController {
             'is_public'
         );
 
+
+        $noteData = array_map("htmlentities", $noteData);
+
         $validator = Validator::make($noteData, [
             'note_title' => 'required',
             'note_body' => 'required'
@@ -77,6 +80,8 @@ class NoteController extends \BaseController {
             'module_id',
             'user_id'
         );
+
+        $noteData = array_map("htmlentities", $noteData);
 
         $validator = Validator::make($noteData, [
             'note_title' => 'required',
