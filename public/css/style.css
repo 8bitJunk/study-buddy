@@ -77,6 +77,10 @@ hr.menu-separator {
     padding-left: 2em;
 }
 
+.public-notes-created-time {
+    padding-right: 1em;
+}
+
 /*==================== Styling for quote of the day ====================*/
 
 #right-quote {
