@@ -11,7 +11,7 @@
             @foreach ($publicNotes as $publicNote)
                 <div class="panel panel-default individual-public-note-container" data-id="{{$publicNote->id}}">
                     <div class="panel-heading public-note-head">
-                        {{{$publicNote->note_title}}}
+                        <span class="public-note-title">{{{$publicNote->note_title}}}</span>
                         <span class="pull-right ">
                             <span class="public-notes-created-time">last changed: {{$publicNote->updated_at->diffForHumans()}}</span>
                             <i class="glyphicon glyphicon-chevron-down public-note-icon"></i>

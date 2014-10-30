@@ -376,6 +376,7 @@
                     var desiredVisible;
                     var isHidden = $(this).siblings().is( ":hidden" );
 
+                    // removing || ($(this).has($(e.target)).size()>0) makes it kind of work better but less places to click
                     if ($(this).is(e.target) || ($(this).has($(e.target)).size()>0)) {
                         if (isHidden) {
                             showNote($(this));
@@ -416,7 +417,7 @@
                 $('.individual-public-note-container').hide();
 
                 // hide everything that does not contain the search term
-                $('.public-note-head:contains("'+searchTerm+'")').parent().show();
+                $('.public-note-title:contains("'+searchTerm+'")').parents().show();
 
                 if (searchTerm == "") {
                     $('.individual-public-note-container').show();
