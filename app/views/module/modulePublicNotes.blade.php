@@ -15,7 +15,7 @@
                     <div class="panel-heading public-note-head">
                         {{{$publicNote->note_title}}}
                         <span class="pull-right ">
-                            <span class="public-notes-created-time">created: {{$publicNote->created_at->diffForHumans()}}</span>
+                            <span class="public-notes-created-time">last changed: {{$publicNote->updated_at->diffForHumans()}}</span>
                             <i class="glyphicon glyphicon-chevron-down public-note-icon"></i>
                         </span>
                     </div>
