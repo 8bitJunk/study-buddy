@@ -373,6 +373,13 @@
                 $(this).children().children('.public-note-icon').toggleClass("glyphicon glyphicon-chevron-down glyphicon glyphicon-chevron-up");
             });
 
+            // make :contains insensitive
+            $.expr[":"].contains = $.expr.createPseudo(function(arg) {
+                return function( elem ) {
+                    return $(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
+                };
+            });
+
             //search public notes
             $('#public-note-search').on('propertychange keyup input paste', function() {
                 var searchTerm = $(this).val();
