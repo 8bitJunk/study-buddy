@@ -132,7 +132,7 @@
                 // now insert the note ID
                 url = url.replace('{id}', noteID);
 
-                console.log(url);
+                // console.log(url);
                 $.ajax({
                     type: "POST",
                     url: url,
@@ -166,7 +166,7 @@
                                 <div class="panel panel-default"> \
                                     <div class="panel-heading public-note-head"> \
                                         ' + json.note_title +' \
-                                        <i class="glyphicon glyphicon-chevron-up pull-right"></i> \
+                                        <i class="glyphicon glyphicon-chevron-down pull-right"></i> \
                                     </div> \
                                     <div class="panel-body public-note-body"> \
                                         <pre>' + json.note_body + '</pre> \
@@ -248,7 +248,7 @@
                                 <div class="panel panel-default"> \
                                     <div class="panel-heading public-note-head"> \
                                         ' + json.note_title +' \
-                                        <i class="glyphicon glyphicon-chevron-up pull-right"></i> \
+                                        <i class="glyphicon glyphicon-chevron-down pull-right"></i> \
                                     </div> \
                                     <div class="panel-body public-note-body"> \
                                         <pre>' + json.note_body + '</pre> \
@@ -287,7 +287,7 @@
                     // now insert the note ID
                     url = url.replace('{id}', noteID);
 
-                    console.log(url);
+                    // console.log(url);
                     $.ajax({
                         url: url,
                         type: 'DELETE',
@@ -363,9 +363,10 @@
                 var isHidden = $(this).siblings().is( ":hidden" );
                 if (isHidden) {
                     $(this).siblings().slideToggle( "slow", function() {
-                        // Animation complete.
+
                     });
                 }
+                $(this).children('.public-note-icon').toggleClass("glyphicon glyphicon-chevron-down glyphicon glyphicon-chevron-up");
             });
             
             // Used to display PDF in modal

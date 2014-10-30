@@ -49,7 +49,7 @@ $(function() {
         // now insert the note ID
         url = url.replace('{id}', noteID);
 
-        console.log(url);
+        // console.log(url);
         $.ajax({
             type: "POST",
             url: url,

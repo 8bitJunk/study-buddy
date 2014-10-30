@@ -14,7 +14,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading public-note-head">
                         {{{$publicNote->note_title}}}
-                        <i class="glyphicon glyphicon-chevron-up pull-right"></i>
+                        <i class="glyphicon glyphicon-chevron-down pull-right public-note-icon"></i>
                     </div>
                     <div class="panel-body public-note-body">
                         <pre>{{{$publicNote->note_body}}}</pre>
