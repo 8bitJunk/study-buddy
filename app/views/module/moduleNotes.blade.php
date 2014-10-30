@@ -18,7 +18,7 @@
         <button id="create-new-button" class="btn btn-primary btn-block"><i class="glyphicon glyphicon-plus"></i> Create New</button>
         <ul class="list-group" id="note-list">
             @foreach ($module->notesForUser() as $note)
-                <li class="list-group-item"><a href="#" data-id="{{$note->id}}" class="note-loader"> {{$note->note_title}} </a></li>
+                <li class="list-group-item"><a href="#" data-id="{{$note->id}}" class="note-loader"> {{{$note->note_title}}} </a></li>
             @endforeach
         </ul>
     </div>

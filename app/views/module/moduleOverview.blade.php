@@ -371,17 +371,37 @@
             });
 
             // expands note to show body
-            $('.public-note-container').on('click', '.public-note-head', function() {
-                $('.public-note-body').slideUp(400);
+            $('.public-note-container').on('click', '.public-note-head', function(e) {
+                $('.public-note-head').each(function() {
+                    var desiredVisible;
+                    var isHidden = $(this).siblings().is( ":hidden" );
 
-                var isHidden = $(this).siblings().is( ":hidden" );
-                if (isHidden) {
-                    $(this).siblings().slideToggle( "slow", function() {
-
-                    });
-                }
-                $(this).children().children('.public-note-icon').toggleClass("glyphicon glyphicon-chevron-down glyphicon glyphicon-chevron-up");
+                    if ($(this).is(e.target) || ($(this).has($(e.target)).size()>0)) {
+                        if (isHidden) {
+                            showNote($(this));
+                        } else {
+                            hideNote($(this));
+                        }
+                    } else {
+                        hideNote($(this));
+                    }
+                });
             });
+
+            function hideNote(elem) {
+                elem.siblings().slideUp(400, function() {
+                    $('.public-note-icon').removeClass('glyphicon-chevron-up')
+                        .addClass('glyphicon-chevron-down');
+                }) ;
+            }
+
+            function showNote(elem) {
+                elem.siblings().slideDown(400, function() {
+                    $(elem).find('.public-note-icon').removeClass('glyphicon-chevron-down')
+                        .addClass('glyphicon-chevron-up');
+                });
+
+            }
 
             // make ':contains' insensitive
             $.expr[":"].contains = $.expr.createPseudo(function(arg) {
