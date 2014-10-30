@@ -86,19 +86,21 @@
             // ajax for notes
             $('#note-list, #note-search-results').on('click', '.note-loader', function(e) {
                 e.preventDefault();
+
+                // setup url
                 var noteID = $(this).data('id');
                 var url = decodeURI("{{ URL::route('note.json') }}");
-
-                $this = $(this);
-                // now insert the note ID
                 url = url.replace('{id}', noteID);
 
+                $this = $(this);
+
                 $.get(url, function(json) {
+                    // set fileds of the form
                     $('#noteTitle').val(json.note_title);
                     $('#noteBody').val(json.note_body);
                     $('#noteTags').val(json.note_tags);
                     $('#noteID').val(json.id);
-                    if (json.is_public) {
+                    if (json.is_public == 1) {
                         $('#isPublic').prop('checked', true);
                     } else {
                         $('#isPublic').prop('checked', false);
@@ -121,18 +123,17 @@
                 });
             });
 
-            // saves the note and disables editing
+            // save edited notes
             $('#note-save').click(function(e){
                 e.preventDefault();
 
+                // setup url
                 var noteID = $('#noteID').val();
                 var url = decodeURI("{{ URL::route('note.update') }}");
-                var $this = $(this);
-
-                // now insert the note ID
                 url = url.replace('{id}', noteID);
 
-                // console.log(url);
+                var $this = $(this);
+
                 $.ajax({
                     type: "POST",
                     url: url,
@@ -143,12 +144,11 @@
                         is_public: $('#isPublic').is(':checked') ? 1 : 0
                     },
 
-                    //console.log(data);
                     success: function (json) {
                         // update note list title
                         $('a[data-id = "' + json['id'] + '"]').text(json['note_title']);
 
-                        // then make the form uneditable
+                        // make the form uneditable
                         $this
                             .parents('form')
                             .find(':input')
@@ -161,48 +161,58 @@
                         $('#note-heading').text('Edit Note');
 
                         // if it is public add it to public note list
-                        if (json.is_public) {
+                        if (json.is_public == 1) {
                             var $newElem = ' \
-                                <div class="panel panel-default"> \
+                                <div class="panel panel-default individual-public-note-container" data-id="' + json["id"] + '"> \
                                     <div class="panel-heading public-note-head"> \
-                                        ' + json.note_title +' \
-                                        <i class="glyphicon glyphicon-chevron-down pull-right"></i> \
+                                        ' + json["note_title"] + ' \
+                                        <span class="pull-right "> \
+                                            <span class="public-notes-created-time">last changed: now</span> \
+                                            <i class="glyphicon glyphicon-chevron-down public-note-icon"></i> \
+                                        </span> \
                                     </div> \
                                     <div class="panel-body public-note-body"> \
-                                        <pre>' + json.note_body + '</pre> \
+                                        <pre>' + json["note_body"] + '</pre> \
                                     </div> \
                                 </div> \
                             ';
                             $($newElem).prependTo('.public-note-container');
                             $('.public-note-body').hide();
+                        } else {
+                            $('div[data-id = "' + json['id'] + '"]').remove();
                         }
                     }
                 });
             });
 
+            // used to edit the selected note
             $('#edit-button').click(function () {
+                // remove disabled from all fields
                 $('#note-form input[name = "noteTitle"]').removeAttr('disabled').focus();
                 $('#note-form textarea[name = "noteBody"]').removeAttr('disabled');
                 $('#note-form input[name = "noteTags"]').removeAttr('disabled');
                 $('#note-form input[name = "isPublic"]').removeAttr('disabled');
                 $('#note-save').removeAttr('disabled');
 
-                // unhide the delete button and hide this button
+                // show the delete button and hide this button
                 $(this).hide();
                 $('#delete-button').show();
                 $('#note-heading').text('Edit Note');
             });
 
+            // create a new note
             $('#create-new-button').click(function () {
-                $('.note-form :input').val('')
-                    .removeAttr('disabled');
+                // enable form and clear it.
                 $('#note-form input[name = "noteTitle"]').removeAttr('disabled').focus().val('');
                 $('#note-form textarea[name = "noteBody"]').removeAttr('disabled').val('');
                 $('#note-form input[name = "noteTags"]').removeAttr('disabled').val('');
                 $('#note-form input[name = "isPublic"]').removeAttr('disabled').prop('checked', false);
+
+                // show correct save button
                 $('#note-save').hide();
                 $('#new-note-save').show();
                 $('#edit-button').hide();
+                // change heading
                 $('#note-heading').text('New Note');
             });
 
@@ -210,27 +220,24 @@
             $('#new-note-save').click(function(e) {
                 e.preventDefault();
 
-                var url = decodeURI("{{ URL::route('note.store') }}");
+                // var url = decodeURI("{{ URL::route('note.store') }}");
+
                 var $this = $(this);
 
-                var moduleID = {{$module->id}};
-                var userID = {{Auth::user()->id}};
-                // now insert the note ID
                 $.ajax({
                     type: "POST",
-                    url: url,
+                    url: decodeURI("{{ URL::route('note.store') }}"),
                     data: {
                         note_title: $('#noteTitle').val(), 
                         note_body: $('#noteBody').val(),
                         note_tags: $('#noteTags').val(),
                         is_public: $('#isPublic').is(':checked') ? 1 : 0,
-                        module_id: moduleID,
-                        user_id: userID
+                        module_id: {{$module->id}},
+                        user_id: {{Auth::user()->id}}
                     },
 
                     success: function (json) {
-                        // update the parent form elements based on the json
-                        // then make the form uneditable
+                        // make the form uneditable
                         $this
                             .parents('form')
                             .find(':input')
@@ -243,20 +250,25 @@
                             .slideDown();
 
                         // if it is public add it to public note list
-                        if (json.is_public) {
+                        if (json.is_public == 1) {
                             var $newElem = ' \
-                                <div class="panel panel-default"> \
+                                <div class="panel panel-default individual-public-note-container" data-id="' + json["id"] + '"> \
                                     <div class="panel-heading public-note-head"> \
-                                        ' + json.note_title +' \
-                                        <i class="glyphicon glyphicon-chevron-down pull-right"></i> \
+                                        ' + json["note_title"] + ' \
+                                        <span class="pull-right "> \
+                                            <span class="public-notes-created-time">last changed: now</span> \
+                                            <i class="glyphicon glyphicon-chevron-down public-note-icon"></i> \
+                                        </span> \
                                     </div> \
                                     <div class="panel-body public-note-body"> \
-                                        <pre>' + json.note_body + '</pre> \
+                                        <pre>' + json["note_body"] + '</pre> \
                                     </div> \
                                 </div> \
                             ';
                             $($newElem).prependTo('.public-note-container');
                             $('.public-note-body').hide();
+                        } else {
+                            $('div[data-id = "' + json['id'] + '"]').remove();
                         }
 
 
@@ -274,20 +286,17 @@
                 });
             });
 
-            // form delete
+            // delete button above the form
             $('#delete-button').click(function () {
                 // if they choose to delete the note
                 if(confirm('Are you sure you want to permanently delete this note?')){
-                    //delete the note
+                    // setup url
                     var noteID = $('#noteID').val();
-
                     var url = decodeURI("{{ URL::route('note.delete') }}");
-                    var $this = $(this);
-
-                    // now insert the note ID
                     url = url.replace('{id}', noteID);
 
-                    // console.log(url);
+                    var $this = $(this);
+
                     $.ajax({
                         url: url,
                         type: 'DELETE',
