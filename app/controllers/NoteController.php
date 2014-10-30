@@ -34,7 +34,8 @@ class NoteController extends \BaseController {
         $noteData = Input::only(
             'note_title',
             'note_body',
-            'note_tags'
+            'note_tags',
+            'is_public'
         );
 
         $validator = Validator::make($noteData, [
