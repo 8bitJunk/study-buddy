@@ -20,7 +20,6 @@
                     <div class="col-sm-9">
                         <strong>Name:</strong> {{ $userData['name'] }} {{ $userData['surname'] }} <br />
                         <strong>Email:</strong> <a href="mailto:{{ $userData['email'] }}">{{ $userData['email'] }}</a> <br />
-                        <strong>User Level:</strong> {{ $userData['level'] }} <br />
                     </div>
                 </div>
             </li>
