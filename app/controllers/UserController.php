@@ -73,7 +73,6 @@ class UserController extends \BaseController {
         //
     }
 
-
     /**
      * Remove the specified resource from storage.
      *
@@ -129,6 +128,11 @@ class UserController extends \BaseController {
             'level' => $user->user_level
         ];
 
-        return View::make('viewProfile', compact('userData'));
+        $publicNotes = $notes = Note::where('is_public', '=', true)
+                        ->where('user_id', '=', $id)
+                        ->orderBy('updated_at', 'DESC')
+                        ->get();
+
+        return View::make('viewProfile', compact('userData', 'publicNotes'));
     }
 }
