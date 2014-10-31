@@ -33,6 +33,7 @@
 
 @section('javascript')
     {{ HTML::script('js/jquery-ui.js') }}
+
     <script>
         $(function() {
             // hides the delete button on the note edit form because chris said to.
@@ -346,29 +347,35 @@
 
                 var $this = $(this);
 
-                $.ajax({
-                    type: "POST",
-                    url: url,
-                    data: {
-                        note_tags: $('#note-search').val()
-                    },
-                    datatype: 'json',
+                if($('#note-search').val() != "") {
+                     $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: {
+                            note_tags: $('#note-search').val()
+                        },
+                        datatype: 'json',
 
-                    success: function (json) {
-                        // clear list ready to add new items
-                        $("#note-search-results").empty();
-                        //show empty list
-                        $('#note-search-results').show();
+                        success: function (json) {
+                            // clear list ready to add new items
+                            $("#note-search-results").empty();
 
-                        // add notes to the list
-                        $.each(json, function(){
-                            $('<li class="list-group-item"><a href="#" data-id="'+this["id"]+'" class="note-loader"> '+this["note_title"]+' </a></li>')
-                                .prependTo('#note-search-results');
-                        });
-                        $('<br />').prependTo('#note-search-results');
-                    }
-                });
+                            if(json.length > 0) {
+                                //show empty list
+                                $('#note-search-results').show();
+
+                                // add notes to the list
+                                $.each(json, function(){
+                                    $('<li class="list-group-item"><a href="#" data-id="'+this["id"]+'" class="note-loader"> '+this["note_title"]+' </a></li>')
+                                        .prependTo('#note-search-results');
+                                });
+                                $('<br />').prependTo('#note-search-results');
+                            }
+                        }
+                    });
+                }
             });
+            
 
             // expands note to show body
             $('.public-note-container').on('click', '.public-note-head', function(e) {

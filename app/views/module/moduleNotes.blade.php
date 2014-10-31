@@ -9,7 +9,6 @@
                 <button class="btn btn-primary" id="note-search-button" type="button"><i class="glyphicon glyphicon-search"></i></button>
             </span>
         </div>
-
         
         <ul class="list-group" id="note-search-results">
             
