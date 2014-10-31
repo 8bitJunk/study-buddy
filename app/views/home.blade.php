@@ -1,5 +1,9 @@
 @extends('master')
 
+@section('title')
+    Home
+@stop
+
 @section('content')
 <div class="row">
     <div class="col-sm-2">
