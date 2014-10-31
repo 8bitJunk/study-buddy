@@ -1,10 +1,10 @@
 <html>
-    <body>
-
-        <!-- Fixed navbar -->
+    <head>
+        <title>login</title>
         <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
         <link rel="stylesheet" href="/css/style.css">
-
+    </head>
+    <body>
         <div class="row">
             <div class="navbar navbar-default navbar-fixed-top" role="navigation">
                 <div class="container">
@@ -75,7 +75,6 @@
     {{ HTML::script('js/docs.js') }}
 
     <script>
-
         $(document).ready(function() {
             var pass = false;
             var email = false;
@@ -122,7 +121,6 @@
                 }
             });
         });
-
     </script>
 </html>
 

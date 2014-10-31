@@ -1,5 +1,9 @@
 @extends('master')
 
+@section('title')
+    {{{$module->module_name}}}
+@stop
+
 @section('content')
 <div class="row">
     @if(Session::has('success'))
