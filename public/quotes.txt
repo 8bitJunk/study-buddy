@@ -1,3 +1,4 @@
 A man must know he is thirsty before he will drink.
 The cornfield of the DOM.
 Clean code, clean mind.
+Sanitise for the domain.
