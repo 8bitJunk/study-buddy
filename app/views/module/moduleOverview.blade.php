@@ -23,8 +23,11 @@
             <h2>Teacher Information</h2>
             @foreach($teachersInformation as $teacherInformation)
                 <li class="list-group-item">
-                <i class="glyphicon glyphicon-user"></i> {{{ $teacherInformation->name }}} {{{ $teacherInformation->surname }}} <br>
-                <i class="glyphicon glyphicon-envelope"></i> {{ HTML::mailto($teacherInformation->email, $teacherInformation->email) }}
+                    <i class="glyphicon glyphicon-user"></i> {{ HTML::linkRoute('viewProfile', 
+                        $teacherInformation->name . " " . $teacherInformation->surname ,
+                        [$teacherInformation->id]) }}
+                    <br>
+                    <i class="glyphicon glyphicon-envelope"></i> {{ HTML::mailto($teacherInformation->email, $teacherInformation->email) }}
                 </li>
             @endforeach
         </div>
