@@ -60,9 +60,18 @@
 @stop
 
 @section('javascript')
+    {{ HTML::script('js/identicon/identicon.js') }}
+    {{ HTML::script('js/identicon/pnglib.js') }}
+
     <script type="text/javascript">
         // public note collapse note body on load
         $('.public-note-body').hide();
+
+        // icon generator
+        var name = "{{ $userData['email']}}";
+        var data = new Identicon(name, 128).toString();
+        // insert into image
+        $('.profile-image').attr("src", 'data:image/png;base64,'+data);
 
         // expands note to show body
         $('.public-note-container').on('click', '.public-note-head', function(e) {
@@ -95,6 +104,8 @@
                 $(elem).find('.public-note-icon').removeClass('glyphicon-chevron-down')
                     .addClass('glyphicon-chevron-up');
             });
+
+
 
         }
     </script>
