@@ -1,0 +1,9 @@
+{
+  "name": "study-buddy",
+  "version": "0.1.0",
+  "devDependencies": {
+    "cssmin": "^0.4.2",
+    "grunt-contrib-cssmin": "^0.10.0",
+    "grunt-contrib-uglify": "^0.6.0"
+  }
+}
