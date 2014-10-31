@@ -19,7 +19,7 @@
             <li class="list-group-item">
                 <div class="row">
                     <div class="col-sm-3">
-                        <img class="profile-image" src="https://github.com/identicons/{{ str_limit($userData['name'].$userData['surname'], $limit = 8, $end = '' )}}.png" alt="profile identicon">
+                        <img class="profile-image" src="https://github.com/identicons/{{ $userData['name'] }}.png" alt="profile identicon">
                     </div>
                     <div class="col-sm-9">
                         <strong>Name:</strong> {{ $userData['name'] }} {{ $userData['surname'] }} <br />
