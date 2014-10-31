@@ -40,7 +40,7 @@
 </div>
 <div class="row">
     <div class="col-sm-8 col-sm-offset-2">
-        <h2>Quote of the Page Load</h2>
+        <h2>Words of Wisdom</h2>
         <?php
             $f_contents = file(public_path() . "/quotes.txt");
             $line = $f_contents[array_rand($f_contents)];
