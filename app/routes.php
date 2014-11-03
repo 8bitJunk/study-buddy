@@ -12,7 +12,6 @@
 */
 
 
-// Common::cleanup();
 
 // display login page
 Route::get('/', [

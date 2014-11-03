@@ -39,7 +39,7 @@ class NoteController extends \BaseController {
         );
 
 
-        $noteData = array_map("htmlentities", $noteData);
+        // $noteData = array_map("htmlentities", $noteData);
 
         $validator = Validator::make($noteData, [
             'note_title' => 'required',
@@ -63,10 +63,10 @@ class NoteController extends \BaseController {
     }
 
     // show form for the new note
-    public function create($id) {
-        $module = Module::find($id);
-        return View::make('module/moduleNewNote', compact('module'));
-    }
+    // public function create($id) {
+    //     $module = Module::find($id);
+    //     return View::make('module/moduleNewNote', compact('module'));
+    // }
 
     // store the new note in the database
     public function store() {
@@ -81,7 +81,7 @@ class NoteController extends \BaseController {
             'user_id'
         );
 
-        $noteData = array_map("htmlentities", $noteData);
+        // $noteData = array_map("htmlentities", $noteData);
 
         $validator = Validator::make($noteData, [
             'note_title' => 'required',
