@@ -36,7 +36,7 @@ class CourseController extends \BaseController {
 		    'course_name'
 		);
 
-		$courseData = array_map("htmlentities", $courseData);
+		//$courseData = array_map("htmlentities", $courseData);
 
 		$validator = Validator::make($courseData, [
 		    'course_name' => 'required'

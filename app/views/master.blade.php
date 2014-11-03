@@ -4,6 +4,7 @@
         <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
         <link rel="stylesheet" href="/css/style.css">
         <link rel="stylesheet" href="/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/plugins/multiselect.js/css/multi-select.css">
         <title> @yield('title') - Study Buddy </title>
 
         {{ HTML::script('js/jquery.js') }}

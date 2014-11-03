@@ -7,6 +7,13 @@
                 {{ Form::input('text', 'email', '', ['class'=>'form-control', 'placeholder' => 'Email', 'required']) }} <br>
                 {{ Form::input('password', 'password', '', ['class'=>'form-control', 'placeholder' => 'Password', 'required']) }} <br>
                 {{ Form::select('user_level', ['STUDENT'=>'STUDENT', 'TEACHER'=>'TEACHER', 'ADMIN'=>'ADMIN'], null, ['class'=>'form-control', 'required']) }} <br>
+                
+                <select id="keep-order" multiple="multiple" name="user_modules">
+                    @foreach($modules as $module)
+                        <option value="{{ $module->id }}">{{ $module->module_name }}</option>
+                    @endforeach
+                </select>
+            
                 {{ Form::submit('Add', array('class' => 'btn btn-primary btn-large btn-block', 'id' => 'admin-user-add')) }}
             {{ Form::close() }}
         <br />

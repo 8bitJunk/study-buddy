@@ -37,10 +37,13 @@ class UserController extends \BaseController {
             'surname',
             'email',
             'password',
-            'user_level'
+            'user_level',
+            'user_modules'
         );
 
-        $userData = array_map("htmlentities", $userData);
+        //$userData = array_map("htmlentities", $userData);
+
+        return $userData;
 
         $validator = Validator::make($userData, [
             'name' => 'required|alphanum',
@@ -166,8 +169,9 @@ class UserController extends \BaseController {
     public function showAdmin() {
         
         if(User::Find(Auth::user()->id)->user_level == 'ADMIN'){
+            $modules = Module::all();
             $courses = Course::lists('course_name', 'id');
-            return View::make('admin', compact('courses'));
+            return View::make('admin', compact('courses', 'modules'));
         } else {
             return Redirect::route('home')
                             ->with('flash_error', 'You are not authorised to access that area.');;

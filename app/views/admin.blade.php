@@ -50,3 +50,12 @@
     </div>
 </div>
 @stop
+
+@section('javascript')
+    <script type="text/javascript" src="/plugins/multiselect.js/js/jquery.multi-select.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            $('#keep-order').multiSelect({ keepOrder: true });
+        });
+    </script>
+@stop
