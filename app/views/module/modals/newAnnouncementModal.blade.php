@@ -19,7 +19,7 @@
                         {{ Form::open(['url' => 'module/'.$module->id.'/announcement/new/']) }}
 
                             <div class="row">
-                                {{ Form::Textarea('announcement', '', ['class' => 'form-control', 'rows' => '2', 'placeholder' => 'Announcement', 'id' => 'announcement'] )}}
+                                {{ Form::Textarea('announcement', '', ['class' => 'form-control', 'rows' => '2', 'placeholder' => 'Announcement', 'id' => 'announcement', 'autofocus' => true] )}}
                                 {{ Form::hidden('moduleID', $module->id, ['id' => 'moduleID']) }}
                                 <br />
                                 <span class="pull-right">
