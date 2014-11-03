@@ -75,6 +75,11 @@ Route::group(['before' => 'auth'], function() {
         'uses' => 'NoteController@store'
     ]);
 
+    Route::post('user/new', [
+        'as' => 'user.store',
+        'uses' => 'UserController@store'
+    ]);
+
     // update an existing note
     Route::post('note/{id}/update', [
         'as' => 'note.update',
@@ -102,6 +107,11 @@ Route::group(['before' => 'auth'], function() {
     Route::get('/user/{id}/profile',  [
         'as' => 'viewProfile',
         'uses' => 'UserController@getProfile'
+    ]);
+
+    Route::get('/admin',  [
+        'as' => 'viewAdmin',
+        'uses' => 'UserController@showAdmin'
     ]);
 
 

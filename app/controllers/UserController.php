@@ -21,7 +21,6 @@ class UserController extends \BaseController {
     public function create()
     {
         //
-        echo "Create new User";
     }
 
 
@@ -33,6 +32,34 @@ class UserController extends \BaseController {
     public function store()
     {
         //
+        $userData = Input::only(
+            'name',
+            'surname',
+            'email',
+            'password',
+            'user_level'
+        );
+
+        $userData = array_map("htmlentities", $userData);
+
+        $validator = Validator::make($userData, [
+            'name' => 'required|alphanum',
+            'surname' => 'required|alphanum',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|alphanum|min:5',
+            'user_level' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return Redirect::route('viewAdmin')
+                ->with('flash_error', $validator->messages());
+        }
+        else {
+            $userData['password'] = Hash::make($userData['password']);
+            $user = User::create($userData);
+            return Redirect::route('viewAdmin')
+                ->with('success', 'New user: '. $userData["name"] .' created.');
+        }
     }
 
 
@@ -134,5 +161,14 @@ class UserController extends \BaseController {
                         ->get();
 
         return View::make('viewProfile', compact('userData', 'publicNotes'));
+    }
+
+    public function showAdmin() {
+        if(User::Find(Auth::user()->id)->user_level == 'ADMIN'){
+            return View::make('admin');
+        } else {
+            return Redirect::route('home')
+                            ->with('flash_error', 'You are not authorised to access that area.');;
+        }
     }
 }

@@ -12,7 +12,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	protected $table = 'users';
 	public $timestamps = false;
-	protected $guarded = ['id', 'user_level'];
+	protected $guarded = ['id'];
 
 	protected $hidden = array('password', 'remember_token');
 
