@@ -32,6 +32,25 @@ class CourseController extends \BaseController {
 	public function store()
 	{
 		//
+		$courseData = Input::only(
+		    'course_name'
+		);
+
+		$courseData = array_map("htmlentities", $courseData);
+
+		$validator = Validator::make($courseData, [
+		    'course_name' => 'required'
+		]);
+
+		if ($validator->fails()) {
+		    return Redirect::route('viewAdmin')
+		        ->with('flash_error', $validator->messages());
+		}
+		else {
+			Course::create($courseData);
+		    return Redirect::route('viewAdmin')
+		        ->with('success', 'New course <strong>'. $courseData["course_name"] .'</strong> created.');
+		}
 	}
 
 

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateVoteTable extends Migration {
+class createTimestampsInCourses extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -13,6 +13,10 @@ class CreateVoteTable extends Migration {
 	public function up()
 	{
 		//
+		Schema::table('courses', function($table)
+		{
+			$table->timestamps();	
+		});
 	}
 
 	/**
@@ -23,6 +27,11 @@ class CreateVoteTable extends Migration {
 	public function down()
 	{
 		//
+		Schema::table('courses', function($table)
+		{
+		    $table->dropColumn('created_at');
+		    $table->dropColumn('updated_at');
+		});
 	}
 
 }

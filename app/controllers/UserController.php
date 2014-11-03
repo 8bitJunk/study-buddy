@@ -56,9 +56,9 @@ class UserController extends \BaseController {
         }
         else {
             $userData['password'] = Hash::make($userData['password']);
-            $user = User::create($userData);
+            User::create($userData);
             return Redirect::route('viewAdmin')
-                ->with('success', 'New user: '. $userData["name"] .' created.');
+                ->with('success', 'New user <strong>'. $userData["name"] .'</strong> created.');
         }
     }
 
@@ -164,8 +164,10 @@ class UserController extends \BaseController {
     }
 
     public function showAdmin() {
+        
         if(User::Find(Auth::user()->id)->user_level == 'ADMIN'){
-            return View::make('admin');
+            $courses = Course::lists('course_name', 'id');
+            return View::make('admin', compact('courses'));
         } else {
             return Redirect::route('home')
                             ->with('flash_error', 'You are not authorised to access that area.');;
