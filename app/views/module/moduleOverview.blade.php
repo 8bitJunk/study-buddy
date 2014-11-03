@@ -433,6 +433,72 @@
                     $('.individual-public-note-container').show();
                 }
             });
+
+            // ajaxing up the announcements
+            $('#announcement-submit').click(function(e) {
+                e.preventDefault();
+
+                var url = decodeURI("{{ URL::route('announcement.new') }}");
+                url = url.replace('{id}', {{$module->id}});
+
+                var $this = $(this);
+
+                if($('#announcement').val() != "") {
+                     $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: {
+                            module_id: {{$module->id}},
+                            announcement_body: $('#announcement').val(),
+                            user_id: {{ Auth::user()->id }}
+                        },
+                        datatype: 'json',
+
+                        success: function (json) {
+                            $('#newAnnouncementModal').modal('hide');
+
+                            // create new element
+                            var $newElem = ' \
+                                <li class="list-group-item announcement-container"> \
+                                    <div class="list-group-heading"> \
+                                        <strong> {{{ $module->module_name }}} </strong> - now \
+                                        @if(Auth::user()->user_level == "TEACHER") \
+                                            <span class="pull-right"> \
+                                                <button class="btn btn-danger announcement-delete" data-id="'+json["id"]+'"> Delete </button> \
+                                            </span> \
+                                        @endif \
+                                    </div> \
+                                    <p class="list-group-item-text">'+json["announcement_body"]+'</p> \
+                                </li> \
+                            ';
+
+                            $($newElem).prependTo('#announcement-list');
+                        }
+                    });
+                }
+            });
+
+            $('#announcement-list').on('click', '.announcement-delete',function(e) {
+                e.preventDefault();
+                // if they choose to delete the note
+                if(confirm('Are you sure you want to permanently delete this announcement?')){
+                    // setup url
+                    var announcementID =  $(this).data('id');
+
+                    var url = decodeURI("{{ URL::route('announcement.delete') }}");
+                    url = url.replace('{id}', announcementID);
+
+                    $this = $(this);
+
+                    $.ajax({
+                        url: url,
+                        type: 'DELETE',
+                        success: function(id) {
+                            $this.parentsUntil('#announcement-list').remove();
+                        }
+                    });
+                }
+            });
             
             // Used to display PDF in modal
             $('#material-list').on('click', '#preview-link', function() {

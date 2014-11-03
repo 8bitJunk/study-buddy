@@ -120,12 +120,12 @@ Route::group(['before' => 'auth'], function() {
     });
 
     Route::post('module/{id}/announcement/new', [
-        'as' => 'newModuleAnnouncement',
+        'as' => 'announcement.new',
         'uses' => 'AnnouncementController@store'
     ]);
 
-    Route::post('module/{id}/announcement/{announcementID}/delete', [
-        'as' => 'deleteAnnouncement',
+    Route::delete('announcement/{id}/delete', [
+        'as' => 'announcement.delete',
         'uses' => 'AnnouncementController@delete'
     ]);
 

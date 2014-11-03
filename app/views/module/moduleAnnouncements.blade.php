@@ -7,17 +7,15 @@
                 @endif
             </span>
         </h2>
-        <ul class="list-group">
+        <ul class="list-group" id="announcement-list">
             @foreach($module->announcements->reverse() as $announcement)
-                <li class="list-group-item">
+                <li class="list-group-item announcement-container">
                     <div class="list-group-heading">
                         <strong>{{{ Module::find($announcement->module_id)->module_name }}}</strong>
                          - {{{$announcement->created_at->diffForHumans()}}} 
                         @if(Auth::user()->user_level == "TEACHER")
                             <span class="pull-right">
-                                {{ Form::open(['url' => 'module/'. $module->id .'/announcement/' . $announcement->id . '/delete']) }}
-                                    {{ Form::submit('Delete', ['class' => 'btn btn-danger', 'onclick' => 'return confirm("Do you really want to permanently delete this announcement?")'])}}
-                                {{ Form::close() }}
+                                <button class="btn btn-danger announcement-delete" data-id="{{$announcement->id}}"> Delete </button>
                             </span>
                         @endif
                     </div>
