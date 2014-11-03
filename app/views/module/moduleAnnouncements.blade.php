@@ -8,10 +8,11 @@
             </span>
         </h2>
         <ul class="list-group">
-            @foreach($module->announcements as $announcement)
+            @foreach($module->announcements->reverse() as $announcement)
                 <li class="list-group-item">
                     <div class="list-group-heading">
-                        <strong>{{{ Module::find($announcement->module_id)->module_name }}} </strong>
+                        <strong>{{{ Module::find($announcement->module_id)->module_name }}}</strong>
+                         - {{{$announcement->created_at->diffForHumans()}}} 
                         @if(Auth::user()->user_level == "TEACHER")
                             <span class="pull-right">
                                 {{ Form::open(['url' => 'module/'. $module->id .'/announcement/' . $announcement->id . '/delete']) }}
