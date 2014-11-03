@@ -32,27 +32,32 @@ class AnnouncementController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
 		$date = new \DateTime; // used to manually update created_at
-		$moduleID = Input::get('moduleID');
 
-		$id = DB::table('announcements')->insertGetId([
-			'user_id'     => Auth::user()->id,
-		    'module_id' => $moduleID,
-		    'announcement_body' => Input::get('announcement'),
-			'created_at' => $date,
-		]);
+       $announcementData = Input::only(
+           'module_id',
+           'announcement_body',
+           'user_id'
+       );
 
-		return Redirect::route('module', [$moduleID])
-		    ->with('success', 'Announcement successfully created.');
+       $validator = Validator::make($announcementData, [
+           'announcement_body' => 'required',
+           'module_id' => 'required',
+           'user_id' => 'required'
+       ]);
+
+       if ($validator->fails()) {
+           return Response::json($validator->messages(), 400);
+       }
+       else {
+           $announcement = Announcement::create($announcementData);
+           return $announcement;
+       }
 	}
 
-	public function delete($id, $announcementID) {
-
-	    $note = Announcement::destroy($announcementID);
-
-	    return Redirect::route('module', ['id'=>$id])
-	        ->with('success', 'Announcement successfully deleted.');
+	public function delete($id) {
+	    $announcement = Announcement::destroy($id);
+	    return $id;
 	}
 
 	/**
