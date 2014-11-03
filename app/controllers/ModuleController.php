@@ -48,11 +48,11 @@ class ModuleController extends \BaseController {
         else {
             $module = Module::create($moduleData);
             DB::table('course_module')->insert([
-                'course_id' => $course_module,
+                'course_id' => $course_module['module_course'],
                 'module_id' => $module->id
             ]);
             return Redirect::route('viewAdmin')
-                ->with('success', 'New user <strong>'. $moduleData["module_name"] .'</strong> created.');
+                ->with('success', 'New module <strong>'. $moduleData["module_name"] .'</strong> created.');
         }
     }
 
