@@ -9,6 +9,7 @@ class ModuleController extends \BaseController {
         $teachersInformation = $module->users()->whereUserLevel("TEACHER")->get();
 
         $recentMaterials = $module->materials()->orderBy('created_at', 'desc')->get();
+        
         $publicNotes = $notes = Note::where('is_public', '=', true)
                         ->where('module_id', '=', $id)
                         ->orderBy('updated_at', 'DESC')
