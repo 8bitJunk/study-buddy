@@ -124,7 +124,6 @@ Route::group(['before' => 'auth'], function() {
         'uses' => 'UserController@showAdmin'
     ]);
 
-
     Route::get('materials/{id}', function ($id) {
         return Response::download( Material::find($id)->url );
     });
