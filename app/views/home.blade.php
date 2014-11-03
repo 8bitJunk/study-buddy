@@ -5,6 +5,12 @@
 @stop
 
 @section('content')
+@if(Session::has('flash_error'))
+    <div class="alert alert-danger alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <strong>Error!</strong> {{ Session::get('flash_error') }}
+    </div>
+@endif
 <div class="row">
     <div class="col-sm-2">
         <h2 class="hidden-xs"><br /></h2>

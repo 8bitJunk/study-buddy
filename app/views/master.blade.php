@@ -24,6 +24,9 @@
                             </button>
                             <ul class="dropdown-menu" role="menu">
                                 <li>{{ HTML::linkRoute('viewProfile', 'View Profile', ['id' => Auth::user()->id]) }}</li>
+                                @if(Auth::user()->user_level == 'ADMIN')
+                                    <li>{{ HTML::linkRoute('viewAdmin', 'Admin Page') }}</li>
+                                @endif
                                 <li class="divider"></li>
                                 <li>{{ HTML::linkRoute('doLogout', 'Logout') }}</li>
                             </ul>
