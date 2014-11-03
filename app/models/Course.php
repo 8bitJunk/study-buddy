@@ -12,5 +12,8 @@ class Course extends Eloquent implements UserInterface, RemindableInterface {
     protected $table = 'courses';
     protected $guarded = ['id'];
 
+    public function modules() {
+        return $this->hasMany('Module');
+    }
 
 }

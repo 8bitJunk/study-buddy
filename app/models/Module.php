@@ -36,4 +36,8 @@ class Module extends Eloquent implements UserInterface, RemindableInterface {
         return $this->hasMany('Material');
     }
 
+    public function course() {
+        return $this->belongsTo('Course');
+    }
+
 }
