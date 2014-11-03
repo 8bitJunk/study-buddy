@@ -24,6 +24,38 @@ class ModuleController extends \BaseController {
         return View::make('module/moduleIndex', compact('user'));
     }
 
+    public function store() {
+        $moduleData = Input::only(
+            'module_name',
+            'module_description'
+        );
+
+        $course_module = Input::only(
+            'module_course'
+        );
+
+        $moduleData = array_map("htmlentities", $moduleData);
+
+        $validator = Validator::make($moduleData, [
+            'module_name' => 'required',
+            'module_description' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return Redirect::route('viewAdmin')
+                ->with('flash_error', $validator->messages());
+        }
+        else {
+            $module = Module::create($moduleData);
+            DB::table('course_module')->insert([
+                'course_id' => $course_module,
+                'module_id' => $module->id
+            ]);
+            return Redirect::route('viewAdmin')
+                ->with('success', 'New user <strong>'. $moduleData["module_name"] .'</strong> created.');
+        }
+    }
+
     public function  uploadMaterial() {
         $destinationPath = '';
         $filename        = '';

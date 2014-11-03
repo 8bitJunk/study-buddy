@@ -58,6 +58,11 @@ Route::group(['before' => 'auth'], function() {
         'uses' => 'ModuleController@update'
     ]);
 
+    Route::post('module/new', [
+        'as' => 'module.store',
+        'uses' => 'ModuleController@store'
+    ]);
+
     // upload material for that module (teacher only)
     Route::post('module/{id}/uploadMaterial',[
         'as' => 'uploadMaterial',
