@@ -25,26 +25,28 @@
             <li> {{ HTML::linkRoute('moduleIndex', 'Your Modules') }}</li>
         </ul>
     </div>
-    <div class="col-sm-4">
-        <h2>Add Courses</h2>
-
-    </div>
-    <div class="col-sm-4">
-        <h2>Add Modules</h2>
-
-    </div>
-</div>
-<div class="row">
-    <div class="col-sm-8 col-sm-offset-2">
-        <h2>Add User</h2>
-        {{ Form::open(array('method' => 'POST', 'action' => 'UserController@store', 'id' => 'admin-user-form')) }}
-            {{ Form::input('text', 'name', '', ['class'=>'form-control', 'placeholder' => 'Name', 'required']) }} <br>
-            {{ Form::input('text', 'surname', '', ['class'=>'form-control', 'placeholder' => 'Surname', 'required']) }} <br>
-            {{ Form::input('text', 'email', '', ['class'=>'form-control', 'placeholder' => 'Email', 'required']) }} <br>
-            {{ Form::input('password', 'password', '', ['class'=>'form-control', 'placeholder' => 'Password', 'required']) }} <br>
-            {{ Form::select('user_level', ['STUDENT'=>'STUDENT', 'TEACHER'=>'TEACHER', 'ADMIN'=>'ADMIN'], null, ['class'=>'form-control', 'required']) }} <br>
-            {{ Form::submit('Add', array('class' => 'btn btn-primary btn-large btn-block', 'id' => 'admin-user-add')) }}
-        {{ Form::close() }}
+    <div class="col-sm-8">
+        <ul class="nav nav-tabs" role="tablist" id="tab-list">
+            <li class="active"><a href="#overview" role="tab" data-toggle="tab">Overview</a></li>
+            <li><a href="#users" role="tab" data-toggle="tab">Users</a></li>
+            <li><a href="#modules" role="tab" data-toggle="tab">Modules</a></li>
+            <li><a href="#courses" role="tab" data-toggle="tab">Courses</a></li>
+        </ul>
+        <br />
+        <div class="tab-content">
+            <div class="tab-pane active" id="overview">
+                @include('admin.adminOverview')
+            </div>
+            <div class="tab-pane" id="users">
+                @include('admin.adminUsers')
+            </div>
+            <div class="tab-pane" id="modules">
+                @include('admin.adminModules')
+            </div>
+            <div class="tab-pane" id="courses">
+                @include('admin.adminCourses')
+            </div>
+        </div>
     </div>
 </div>
 @stop

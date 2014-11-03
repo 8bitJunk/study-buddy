@@ -80,6 +80,11 @@ Route::group(['before' => 'auth'], function() {
         'uses' => 'UserController@store'
     ]);
 
+    Route::post('course/new', [
+        'as' => 'course.store',
+        'uses' => 'CourseController@store'
+    ]);
+
     // update an existing note
     Route::post('note/{id}/update', [
         'as' => 'note.update',
