@@ -138,6 +138,9 @@
 
                 var $this = $(this);
 
+                var wasPublic = $('#isPublic').is(':checked') ? 1 : 0;
+                console.log(wasPublic);
+
                 $.ajax({
                     type: "POST",
                     url: url,
@@ -145,7 +148,7 @@
                         note_title: $('#noteTitle').val(), 
                         note_body: $('#noteBody').val(),
                         note_tags: $('#noteTags').val(),
-                        is_public: $('#isPublic').is(':checked') ? 1 : 0
+                        is_public: wasPublic
                     },
 
                     success: function (json) {
@@ -165,7 +168,7 @@
                         $('#note-heading').text('Edit Note');
 
                         // if it is public add it to public note list
-                        if (json.is_public == 1) {
+                        if (json.is_public == 1 && wasPublic == 0) {
                             var $newElem = ' \
                                 <div class="panel panel-default individual-public-note-container" data-id="' + json["id"] + '"> \
                                     <div class="panel-heading public-note-head"> \
@@ -182,7 +185,7 @@
                             ';
                             $($newElem).prependTo('.public-note-container');
                             $('.public-note-body').hide();
-                        } else {
+                        } else if (json.is_public == 0) {
                             $('div[data-id = "' + json['id'] + '"]').remove();
                         }
                     }
