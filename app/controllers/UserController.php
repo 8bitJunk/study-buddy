@@ -40,6 +40,7 @@ class UserController extends \BaseController {
             'user_level'
         );
 
+        // get input arrayception values and then turn it into a simple array
         $userModules = Input::only('user_modules');
         $userModules = $userModules['user_modules'];
 
