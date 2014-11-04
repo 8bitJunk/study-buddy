@@ -139,7 +139,6 @@
                 var $this = $(this);
 
                 var wasPublic = $('#isPublic').is(':checked') ? 1 : 0;
-                console.log(wasPublic);
 
                 $.ajax({
                     type: "POST",
@@ -167,7 +166,11 @@
                         $('#delete-button').hide();
                         $('#note-heading').text('Edit Note');
 
-                        // if it is public add it to public note list
+                        //if it exists in the public notes already, update info
+                        $("div[data-id='"+json["id"]+"']").find('.public-note-title').text(json["note_title"])
+                        $("div[data-id='"+json["id"]+"']").find('.public-note-body').html('<pre>' + json["note_body"] + '</pre>');
+                        $("div[data-id='"+json["id"]+"']").find('.public-notes-created-time').text('last changed: now')
+                        // if it has just been made public, add note public list
                         if (json.is_public == 1 && wasPublic == 0) {
                             var $newElem = ' \
                                 <div class="panel panel-default individual-public-note-container" data-id="' + json["id"] + '"> \
@@ -186,6 +189,7 @@
                             $($newElem).prependTo('.public-note-container');
                             $('.public-note-body').hide();
                         } else if (json.is_public == 0) {
+                            // not public so remove
                             $('div[data-id = "' + json['id'] + '"]').remove();
                         }
                     }
