@@ -108,9 +108,6 @@
                 $(elem).find('.public-note-icon').removeClass('glyphicon-chevron-down')
                     .addClass('glyphicon-chevron-up');
             });
-
-
-
         }
     </script>
 @stop
