@@ -89,7 +89,11 @@ hr.menu-separator {
 }
 
 .ms-list {
-    height: 253px !important;
+    height: 18em !important;
+}
+
+#module-selector {
+    padding-left: 0;
 }
 
 /*==================== Styling for quote of the day ====================*/

@@ -7,9 +7,8 @@
             {{ Form::input('text', 'email', '', ['class'=>'form-control', 'placeholder' => 'Email', 'required']) }} <br>
             {{ Form::input('password', 'password', '', ['class'=>'form-control', 'placeholder' => 'Password', 'required']) }} <br>
             {{ Form::select('user_level', ['STUDENT'=>'STUDENT', 'TEACHER'=>'TEACHER', 'ADMIN'=>'ADMIN'], null, ['class'=>'form-control', 'id'=>'user_level', 'required']) }} <br>
-            <br />
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-6" id="module-selector">
         <h4>Select Modules for User</h4>
         <select id="keep-order" multiple="multiple" name="user_modules">
             @foreach($modules as $module)
@@ -17,9 +16,8 @@
             @endforeach
         </select>
     </div>
-</div>
-<div class="row">
-        {{ Form::submit('Add', array('class' => 'btn btn-primary btn-large btn-block', 'id' => 'admin-user-add')) }}
-    {{ Form::close() }}
-    <br />
+    <div class="col-sm-12">
+            {{ Form::submit('Add', array('class' => 'btn btn-primary btn-large btn-block', 'id' => 'admin-user-add')) }}
+        {{ Form::close() }}
+    </div>
 </div>
