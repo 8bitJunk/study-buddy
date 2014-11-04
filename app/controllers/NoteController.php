@@ -62,12 +62,6 @@ class NoteController extends \BaseController {
         return $id;
     }
 
-    // show form for the new note
-    // public function create($id) {
-    //     $module = Module::find($id);
-    //     return View::make('module/moduleNewNote', compact('module'));
-    // }
-
     // store the new note in the database
     public function store() {
         $date = new \DateTime; // used to manually update created_at
