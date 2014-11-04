@@ -165,7 +165,7 @@
                         //if it exists in the public notes already, update info
                         $("div[data-id='"+json["id"]+"']").find('.public-note-title').text(json["note_title"])
                         $("div[data-id='"+json["id"]+"']").find('.public-note-body').html('<pre>' + json["note_body"] + '</pre>');
-                        $("div[data-id='"+json["id"]+"']").find('.public-notes-created-time').text('last changed: now')
+                        $("div[data-id='"+json["id"]+"']").find('.public-notes-created-time').text('now')
                         // if it has just been made public, add note public list
                         if (json.is_public == 1 && wasPublic == 0) {
                             var $newElem = ' \
@@ -173,7 +173,7 @@
                                     <div class="panel-heading public-note-head"> \
                                         ' + json["note_title"] + ' \
                                         <span class="pull-right "> \
-                                            <span class="public-notes-created-time">last changed: now</span> \
+                                            <span class="public-notes-created-time">now</span> \
                                             <i class="glyphicon glyphicon-chevron-down public-note-icon"></i> \
                                         </span> \
                                     </div> \
@@ -267,7 +267,7 @@
                                     <div class="panel-heading public-note-head"> \
                                         ' + json["note_title"] + ' \
                                         <span class="pull-right "> \
-                                            <span class="public-notes-created-time">last changed: now</span> \
+                                            <span class="public-notes-created-time">now</span> \
                                             <i class="glyphicon glyphicon-chevron-down public-note-icon"></i> \
                                         </span> \
                                     </div> \
