@@ -88,6 +88,10 @@ hr.menu-separator {
     height: 100%;
 }
 
+.ms-list {
+    height: 253px !important;
+}
+
 /*==================== Styling for quote of the day ====================*/
 
 #right-quote {
