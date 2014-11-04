@@ -7,6 +7,11 @@
                 @endif
             </span>
         </h2>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
         <ul class="list-group" id="announcement-list">
             @foreach($module->announcements->reverse() as $announcement)
                 <li class="list-group-item announcement-container">

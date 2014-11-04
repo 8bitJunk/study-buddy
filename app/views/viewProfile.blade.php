@@ -39,13 +39,17 @@
                 <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
             </div>
         </h2>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-8 col-sm-offset-2">
         <div class="public-note-container">
             @foreach ($publicNotes as $publicNote)
                 <div class="panel panel-default individual-public-note-container" data-id="{{$publicNote->id}}">
                     <div class="panel-heading public-note-head">
                         <span class="public-note-title"><strong>[{{{ Module::find($publicNote->module_id)->module_name }}}]</strong> {{{ $publicNote->note_title}}}</span>
                         <span class="pull-right ">
-                            <span class="public-notes-created-time">last changed: {{$publicNote->updated_at->diffForHumans()}}</span>
+                            <span class="public-notes-created-time">{{$publicNote->updated_at->diffForHumans()}}</span>
                             <i class="glyphicon glyphicon-chevron-down public-note-icon"></i>
                         </span>
                     </div>
