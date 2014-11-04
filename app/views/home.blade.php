@@ -22,7 +22,7 @@
     <div class="col-sm-4">
         <h2>Your Modules</h2>
         <ul class="list-group" id="module-list">
-            @foreach($user->modules as $module)
+            @foreach($user->modules->take(5) as $module)
                 <li class="list-group-item">
                     {{ HTML::linkRoute('module', $module->module_name, $module->id) }}
                 </li>

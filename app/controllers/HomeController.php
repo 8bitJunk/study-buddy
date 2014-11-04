@@ -23,8 +23,6 @@ class HomeController extends BaseController {
 			->take(5)
 			->get();
 
-		$modules = $user->modules;
-
 		$announcements = $user->announcements()->take(3)->reverse();
 
         return View::make('home', compact('user', 'notes', 'announcements'));
