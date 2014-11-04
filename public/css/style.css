@@ -73,8 +73,10 @@ hr.menu-separator {
 }
 
 
-#preview-link {
+#download-link {
     padding-left: 2em;
+    padding-right: 2em;
+
 }
 
 .public-notes-created-time {
