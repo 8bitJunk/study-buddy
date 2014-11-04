@@ -36,7 +36,6 @@
 
 @section('javascript')
     {{ HTML::script('js/jquery-ui.js') }}
-
     <script>
         $(function() {
             // hides the delete button on the note edit form because chris said to.
@@ -46,7 +45,6 @@
 
             // public note collapse note body on load
             $('.public-note-body').hide();
-
 
             // dragable, swapable divs
             jQuery.fn.swap = function(b){ 
@@ -59,7 +57,6 @@
                 t.parentNode.removeChild(t); 
                 return this; 
             };
-
 
             $( ".dragdrop" ).draggable({ revert: true, helper: "clone" });
 
@@ -159,7 +156,6 @@
                             .parents('form')
                             .find(':input')
                             .attr('disabled', true);
-
 
                         // change delete button for edit button
                         $('#edit-button').show();
@@ -284,8 +280,7 @@
                             $('.public-note-body').hide();
                         } else {
                             $('div[data-id = "' + json['id'] + '"]').remove();
-                        }    
-
+                        }
 
                         // disable form
                         $('#note-form input[name = "noteTitle"]').prop('disabled', true);
@@ -385,7 +380,6 @@
                     });
                 }
             });
-            
 
             // expands note to show body
             $('.public-note-container').on('click', '.public-note-head', function(e) {
