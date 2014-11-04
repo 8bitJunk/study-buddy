@@ -77,9 +77,18 @@ class MaterialController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function delete($id)
 	{
-		//
+		$file = Material::find($id);
+		echo public_path() . $file->material_path . $file->material_name;
+
+		// remove from db
+		$material = Material::destroy($id);
+
+		// remove from server
+		File::delete(public_path() . $file->material_path . $file->material_name);
+
+		return $id;
 	}
 
 	public function getRecent($moduleID) {

@@ -124,10 +124,6 @@ Route::group(['before' => 'auth'], function() {
         'uses' => 'UserController@showAdmin'
     ]);
 
-    Route::get('materials/{id}', function ($id) {
-        return Response::download( Material::find($id)->url );
-    });
-
     Route::post('module/{id}/announcement/new', [
         'as' => 'announcement.new',
         'uses' => 'AnnouncementController@store'
@@ -136,6 +132,15 @@ Route::group(['before' => 'auth'], function() {
     Route::delete('announcement/{id}/delete', [
         'as' => 'announcement.delete',
         'uses' => 'AnnouncementController@delete'
+    ]);
+
+    Route::get('materials/{id}', function ($id) {
+        return Response::download( Material::find($id)->url );
+    });
+
+    Route::delete('material/{id}/delete', [
+        'as' => 'material.delete',
+        'uses' => 'MaterialController@delete'
     ]);
 
 });

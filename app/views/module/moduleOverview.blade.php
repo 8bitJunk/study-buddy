@@ -504,6 +504,28 @@
             $('#material-list').on('click', '#preview-link', function() {
                 $('#preview-frame').attr('src', $(this).data('src'));
             });
+
+            $('#material-list').on('click', '.material-delete-button' ,function(e) {
+                e.preventDefault();
+                // if they choose to delete the note
+                if(confirm('Are you sure you want to permanently delete this resource?')){
+                    // setup url
+                    var materialID =  $(this).data('id');
+
+                    var url = decodeURI("{{ URL::route('material.delete') }}");
+                    url = url.replace('{id}', materialID);
+
+                    $this = $(this);
+
+                    $.ajax({
+                        url: url,
+                        type: 'DELETE',
+                        success: function(id) {
+                            $this.parentsUntil('#material-list').remove();
+                        }
+                    });
+                }
+            });
         });
     </script>
 @stop

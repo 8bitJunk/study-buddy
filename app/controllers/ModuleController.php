@@ -8,14 +8,14 @@ class ModuleController extends \BaseController {
 		$module = Module::find($id);
         $teachersInformation = $module->users()->whereUserLevel("TEACHER")->get();
 
-        $recentMaterials = $module->materials()->orderBy('created_at', 'desc')->get();
+        $moduleMaterials = $module->materials()->orderBy('created_at', 'desc')->get();
         
         $publicNotes = $notes = Note::where('is_public', '=', true)
                         ->where('module_id', '=', $id)
                         ->orderBy('updated_at', 'DESC')
                         ->get();
 
-        return View::make('module/module', compact('module', 'teachersInformation', 'recentMaterials', 'publicNotes'));
+        return View::make('module/module', compact('module', 'teachersInformation', 'moduleMaterials', 'publicNotes'));
 	}
 
     public function index() {
