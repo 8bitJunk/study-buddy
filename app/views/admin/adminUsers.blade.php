@@ -6,11 +6,11 @@
                 {{ Form::input('text', 'surname', '', ['class'=>'form-control', 'placeholder' => 'Surname', 'required']) }} <br>
                 {{ Form::input('text', 'email', '', ['class'=>'form-control', 'placeholder' => 'Email', 'required']) }} <br>
                 {{ Form::input('password', 'password', '', ['class'=>'form-control', 'placeholder' => 'Password', 'required']) }} <br>
-                {{ Form::select('user_level', ['STUDENT'=>'STUDENT', 'TEACHER'=>'TEACHER', 'ADMIN'=>'ADMIN'], null, ['class'=>'form-control', 'required']) }} <br>
+                {{ Form::select('user_level', ['STUDENT'=>'STUDENT', 'TEACHER'=>'TEACHER', 'ADMIN'=>'ADMIN'], null, ['class'=>'form-control', 'id'=>'user_level', 'required']) }} <br>
                 
                 <select id="keep-order" multiple="multiple" name="user_modules">
                     @foreach($modules as $module)
-                        <option value="{{ $module->id }}">{{ $module->module_name }}</option>
+                        <option data-id="{{ $module->id }}">{{ $module->module_name }}</option>
                     @endforeach
                 </select>
             

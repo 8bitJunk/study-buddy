@@ -56,6 +56,35 @@
     <script type="text/javascript">
         $(function() {
             $('#keep-order').multiSelect({ keepOrder: true });
+
+            // adding a new user, ajax.
+            $('#admin-user-add').click(function(e) {
+                e.preventDefault();
+
+                // get all selected module id's and add them to the array
+                var userModules = [];
+                $(".ms-selection").find(".ms-selected").each(function(){
+                    userModules.push(($(this).data('id')));
+                });
+
+                $.ajax({
+                    type: "POST",
+                    url: decodeURI("{{ URL::route('user.store') }}"),
+                    data: {
+                        name: $('#admin-user-form input[name = "name"]').val(), 
+                        surname: $('#admin-user-form input[name = "surname"]').val(),
+                        email: $('#admin-user-form input[name = "email"]').val(),
+                        password: $('#admin-user-form input[name = "password"]').val(),
+                        user_level: $('#user_level option:selected').val(),
+                        user_modules: userModules
+                    },
+
+                    success: function(json) {
+                        // 
+                        
+                    }
+                });
+            });
         });
     </script>
 @stop

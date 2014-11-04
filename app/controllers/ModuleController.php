@@ -44,15 +44,12 @@ class ModuleController extends \BaseController {
         if ($validator->fails()) {
             return Redirect::route('viewAdmin')
                 ->with('flash_error', $validator->messages());
-        }
-        else {
+        } else {
             $module = Module::create($moduleData);
             DB::table('course_module')->insert([
                 'course_id' => $course_module['module_course'],
                 'module_id' => $module->id
             ]);
-            return Redirect::route('viewAdmin')
-                ->with('success', 'New module <strong>'. $moduleData["module_name"] .'</strong> created.');
         }
     }
 

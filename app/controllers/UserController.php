@@ -37,13 +37,13 @@ class UserController extends \BaseController {
             'surname',
             'email',
             'password',
-            'user_level',
-            'user_modules'
+            'user_level'
         );
 
-        //$userData = array_map("htmlentities", $userData);
+        $userModules = Input::only('user_modules');
+        $userModules = $userModules['user_modules'];
 
-        return $userData;
+        //$userData = array_map("htmlentities", $userData);
 
         $validator = Validator::make($userData, [
             'name' => 'required|alphanum',
@@ -54,14 +54,19 @@ class UserController extends \BaseController {
         ]);
 
         if ($validator->fails()) {
-            return Redirect::route('viewAdmin')
-                ->with('flash_error', $validator->messages());
-        }
-        else {
+            return $validator->messages();
+        } else {
             $userData['password'] = Hash::make($userData['password']);
-            User::create($userData);
-            return Redirect::route('viewAdmin')
-                ->with('success', 'New user <strong>'. $userData["name"] .'</strong> created.');
+            $user = User::create($userData);
+
+            foreach ($userModules as $module) {
+                DB::table('module_user')->insert([
+                    'user_id' => $user->id,
+                    'module_id' => $module
+                ]);
+            }
+
+            return $user;
         }
     }
 
