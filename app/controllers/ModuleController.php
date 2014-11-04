@@ -21,7 +21,7 @@ class ModuleController extends \BaseController {
     public function index() {
         $user = Auth::user();
 
-        return View::make('module/module.index', compact('user'));
+        return View::make('module/moduleIndex', compact('user'));
     }
 
     public function store() {
