@@ -1,4 +1,8 @@
 <div class="row">
+    <div class="alert alert-success alert-dismissible" id="success-message" role="alert">
+      <button type="button" class="close" ><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+      <strong>Success:</strong> New user created
+    </div>
     <div class="col-sm-6">
     <h2>Add User</h2>
         {{ Form::open(array('method' => 'POST', 'action' => 'UserController@store', 'id' => 'admin-user-form')) }}

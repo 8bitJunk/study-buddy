@@ -55,6 +55,10 @@
     <script type="text/javascript" src="/plugins/multiselect.js/js/jquery.multi-select.js"></script>
     <script type="text/javascript">
         $(function() {
+            // hide user creation success message on page load.
+            $('#success-message').hide();
+
+            // set up success alert to diaply later.
             $('#keep-order').multiSelect({ keepOrder: true });
 
             // adding a new user, ajax.
@@ -80,11 +84,23 @@
                     },
 
                     success: function(json) {
-                        // 
-                        
+                        // clear form upon successful creation of new user.
+                        $('#admin-user-form input').val("");
+                        $('#user_level option[value="STUDENT"]').prop('selected', true);
+                        $('#keep-order').multiSelect('deselect_all');
+                        $('#keep-order').multiSelect('refresh');
+
+                        // display success message.
+                        $('#success-message').show();
                     }
                 });
             });
+
+            // hide the success alert when user clicks close button.
+            $('.alert .close').on('click', function(e) {
+                $(this).parent().hide();
+            });
+
         });
     </script>
 @stop
