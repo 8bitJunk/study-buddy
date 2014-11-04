@@ -10,7 +10,7 @@
             <h2 class="hidden-xs"><br /></h2>
             <ul class="nav nav-pills nav-stacked global-menu">
                 <li>{{ HTML::linkRoute('home', 'Home') }}</li>
-                <li class="active"> {{ HTML::linkRoute('moduleIndex', 'Your Modules') }}</li>
+                <li class="active"> {{ HTML::linkRoute('module.index', 'Your Modules') }}</li>
             </ul>
         </div>
         <div class="col-sm-8">

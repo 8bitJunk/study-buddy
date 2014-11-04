@@ -16,17 +16,20 @@
         <h2 class="hidden-xs"><br /></h2>
         <ul class="nav nav-pills nav-stacked global-menu">
             <li class="active">{{ HTML::linkRoute('home', 'Home') }}</li>
-            <li> {{ HTML::linkRoute('moduleIndex', 'Your Modules') }}</li>
+            <li> {{ HTML::linkRoute('module.index', 'Your Modules') }}</li>
         </ul>
     </div>
     <div class="col-sm-4">
-        <h2>Your Modules</h2>
+        <h2>Recently Added Modules</h2>
         <ul class="list-group" id="module-list">
-            @foreach($user->modules->take(5) as $module)
+            @foreach($user->modules->take(4) as $module)
                 <li class="list-group-item">
                     {{ HTML::linkRoute('module', $module->module_name, $module->id) }}
                 </li>
             @endforeach
+            <li class="list-group-item">
+                {{ HTML::linkRoute('module.index', 'Show All...') }}
+            </li>
         </ul>
     </div>
     <div class="col-sm-4">
@@ -59,21 +62,4 @@
          ?>
     </div>
 </div>
-@stop
-
-@section('javascript')
-<script>
-    $(document).ready(function() {
-        $('#module-list li').mouseenter(function(){
-            var moduleName = $(this).text();
-            $("<li class='list-group-item module-description'><div> module description for " + moduleName + " here. </div></li>")
-                    .insertAfter($(this))
-                    .hide()
-                    .slideDown(300);
-        }).mouseleave (
-        function() {
-            $('.module-description').remove();
-        });
-    });
-</script>
 @stop

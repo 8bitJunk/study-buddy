@@ -48,7 +48,7 @@ Route::group(['before' => 'auth'], function() {
 
     // lists all of the users modules
     Route::get('modules/index',  [
-        'as' => 'moduleIndex',
+        'as' => 'module.index',
         'uses' => 'ModuleController@index'
     ]);
 
