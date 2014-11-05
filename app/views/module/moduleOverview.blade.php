@@ -38,6 +38,8 @@
     {{ HTML::script('js/jquery-ui.js') }}
     <script>
         $(function() {
+            var moduleID = {{ $module->id }};
+
             // hides the delete button on the note edit form because chris said to.
             $('#delete-button').hide();
             $('#new-note-save').hide();
@@ -193,7 +195,6 @@
 
             // check server for public notes every 30 seconds
             setInterval(function() {
-                var moduleID = {{ $module->id }};
                 var url = decodeURI("{{ URL::route('note.public.recent') }}");
                 url = url.replace('{id}', moduleID);
 
@@ -275,7 +276,7 @@
                         note_body: $('#noteBody').val(),
                         note_tags: $('#noteTags').val(),
                         is_public: $('#isPublic').is(':checked') ? 1 : 0,
-                        module_id: {{$module->id}},
+                        module_id: moduleID,
                         user_id: {{Auth::user()->id}}
                     },
 
@@ -362,7 +363,7 @@
                 e.preventDefault();
 
                 var url = decodeURI("{{ URL::route('note.search') }}");
-                url = url.replace('{id}', {{$module->id}});
+                url = url.replace('{id}', moduleID);
 
                 var $this = $(this);
 
@@ -454,7 +455,7 @@
                 e.preventDefault();
 
                 var url = decodeURI("{{ URL::route('announcement.new') }}");
-                url = url.replace('{id}', {{$module->id}});
+                url = url.replace('{id}', moduleID);
 
                 var $this = $(this);
 
@@ -463,7 +464,7 @@
                         type: "POST",
                         url: url,
                         data: {
-                            module_id: {{$module->id}},
+                            module_id: moduleID,
                             announcement_body: $('#announcement').val(),
                             user_id: {{ Auth::user()->id }}
                         },
