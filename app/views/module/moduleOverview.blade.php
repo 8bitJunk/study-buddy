@@ -169,16 +169,16 @@
                         // if it has just been made public, add note public list
                         if (json.is_public == 1 && wasPublic == 0) {
                             var $newElem = ' \
-                                <div class="panel panel-default individual-public-note-container" data-id="' + json["id"] + '"> \
+                                <div class="panel panel-default individual-public-note-container" data-id="'+json["id"]+'"> \
                                     <div class="panel-heading public-note-head"> \
-                                        ' + json["note_title"] + ' \
+                                        <span class="public-note-title">'+json["note_title"]+'</span> \
                                         <span class="pull-right "> \
                                             <span class="public-notes-created-time">now</span> \
                                             <i class="glyphicon glyphicon-chevron-down public-note-icon"></i> \
                                         </span> \
                                     </div> \
                                     <div class="panel-body public-note-body"> \
-                                        <pre>' + json["note_body"] + '</pre> \
+                                        <pre>'+json["note_body"]+'</pre> \
                                     </div> \
                                 </div> \
                             ';
@@ -263,16 +263,16 @@
                         // if it is public add it to public note list
                         if (json.is_public == 1) {
                             var $newElem = ' \
-                                <div class="panel panel-default individual-public-note-container" data-id="' + json["id"] + '"> \
+                                <div class="panel panel-default individual-public-note-container" data-id="'+json["id"]+'"> \
                                     <div class="panel-heading public-note-head"> \
-                                        ' + json["note_title"] + ' \
+                                        <span class="public-note-title">'+json["note_title"]+'</span> \
                                         <span class="pull-right "> \
                                             <span class="public-notes-created-time">now</span> \
                                             <i class="glyphicon glyphicon-chevron-down public-note-icon"></i> \
                                         </span> \
                                     </div> \
                                     <div class="panel-body public-note-body"> \
-                                        <pre>' + json["note_body"] + '</pre> \
+                                        <pre>'+json["note_body"]+'</pre> \
                                     </div> \
                                 </div> \
                             ';

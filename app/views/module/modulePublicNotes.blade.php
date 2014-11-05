@@ -1,4 +1,4 @@
-<div class="public-note-container">
+<div class="public-note-page-container">
     <div class="row">
         <div class="col-sm-12">
             <h2>Public Notes
@@ -12,20 +12,22 @@
     </div>
     <div class="row">
         <div class="col-sm-12">
-            @foreach ($publicNotes as $publicNote)
-                <div class="panel panel-default individual-public-note-container" data-id="{{$publicNote->id}}">
-                    <div class="panel-heading public-note-head">
-                        <span class="public-note-title">{{{$publicNote->note_title}}}</span>
-                        <span class="pull-right ">
-                            <span class="public-notes-created-time">{{$publicNote->updated_at->diffForHumans()}}</span>
-                            <i class="glyphicon glyphicon-chevron-down public-note-icon"></i>
-                        </span>
+            <div class="public-note-container">
+                @foreach ($publicNotes as $publicNote)
+                    <div class="panel panel-default individual-public-note-container" data-id="{{$publicNote->id}}">
+                        <div class="panel-heading public-note-head">
+                            <span class="public-note-title">{{{$publicNote->note_title}}}</span>
+                            <span class="pull-right ">
+                                <span class="public-notes-created-time">{{$publicNote->updated_at->diffForHumans()}}</span>
+                                <i class="glyphicon glyphicon-chevron-down public-note-icon"></i>
+                            </span>
+                        </div>
+                        <div class="panel-body public-note-body">
+                            <pre>{{{$publicNote->note_body}}}</pre>
+                        </div>
                     </div>
-                    <div class="panel-body public-note-body">
-                        <pre>{{{$publicNote->note_body}}}</pre>
-                    </div>
-                </div>
-            @endforeach
+                @endforeach
+            </div>
         </div>
     </div>
 </div>
