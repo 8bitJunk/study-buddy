@@ -203,10 +203,31 @@
                     url: url,
 
                     success: function (json) {
-                        //remove all of the ones here
+                        $.each(json, function(index, val) {
+                            console.log('zxc');
+                            //remove all of the ones here
+                            $('div[data-id = "' + json[index]['id'] + '"]').remove();
 
-                        // re-add public ones
-
+                            // re-add public ones
+                            if(json[index]['is_public']) {
+                                var $newElem = ' \
+                                    <div class="panel panel-default individual-public-note-container" data-id="'+json[index]["id"]+'"> \
+                                        <div class="panel-heading public-note-head"> \
+                                            <span class="public-note-title">'+json[index]["note_title"]+'</span> \
+                                            <span class="pull-right "> \
+                                                <span class="public-notes-created-time">'+json[index]["diffForHumans"]+'</span> \
+                                                <i class="glyphicon glyphicon-chevron-down public-note-icon"></i> \
+                                            </span> \
+                                        </div> \
+                                        <div class="panel-body public-note-body"> \
+                                            <pre>'+json[index]["note_body"]+'</pre> \
+                                        </div> \
+                                    </div> \
+                                ';
+                                $($newElem).prependTo('.public-note-container');
+                            }
+                        });
+                    $('.public-note-body').hide();
                     }
                 });
             }, 1e3 * 30);

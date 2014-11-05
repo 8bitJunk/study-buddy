@@ -65,6 +65,10 @@ class NoteController extends \BaseController {
             ->where('module_id', $id)
             ->get();
 
+        foreach($recentPublicNotes as $note) {
+            $note['diffForHumans'] = $note->updated_at->diffForHumans();
+        }
+
         return $recentPublicNotes;
     }
 
