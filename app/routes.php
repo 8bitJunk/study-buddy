@@ -148,6 +148,5 @@ Route::group(['before' => 'auth'], function() {
         'uses' => 'MaterialController@delete'
     ]);
 
+    Route::resource('notes', 'NoteController');
 });
-
-Route::resource('notes', 'NoteController');
