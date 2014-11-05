@@ -108,6 +108,11 @@ Route::group(['before' => 'auth'], function() {
         'uses' => 'NoteController@json'
     ]);
 
+    Route::get('module/{id}/note/public/recent', [
+        'as' => 'note.public.recent',
+        'uses' => 'NoteController@getNewPublic'
+    ]);
+
     Route::post('module/{id}/notes/search', [
         'as' => 'note.search',
         'uses' => 'NoteController@search'

@@ -10,7 +10,7 @@ class ModuleController extends \BaseController {
 
         $moduleMaterials = $module->materials()->orderBy('created_at', 'desc')->get();
         
-        $publicNotes = $notes = Note::where('is_public', '=', true)
+        $publicNotes = Note::where('is_public', '=', true)
                         ->where('module_id', '=', $id)
                         ->orderBy('updated_at', 'DESC')
                         ->get();

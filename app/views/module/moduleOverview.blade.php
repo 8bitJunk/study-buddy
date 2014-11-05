@@ -38,6 +38,8 @@
     {{ HTML::script('js/jquery-ui.js') }}
     <script>
         $(function() {
+            var moduleID = {{ $module->id }};
+
             // hides the delete button on the note edit form because chris said to.
             $('#delete-button').hide();
             $('#new-note-save').hide();
@@ -83,6 +85,27 @@
             });
 
             window.routeLink = "{{{ URL::route('note.json') }}}";
+
+            // note states
+            // show create note - clicked create button
+            function showCreateNote() {
+
+            }
+
+            // show disabled note - clicked on link in note list
+            function showDisabledNote() {
+
+            }
+
+            // show editing note - clicked edit note
+            function showEditingNote() {
+
+            }
+
+            // show empty disabled form - clicked delete note
+            function showEmptyDisabledForm() {
+
+            }
 
             // ajax for notes
             $('#note-list, #note-search-results').on('click', '.note-loader', function(e) {
@@ -162,35 +185,51 @@
                         $('#delete-button').hide();
                         $('#note-heading').text('Edit Note');
 
-                        //if it exists in the public notes already, update info
-                        $("div[data-id='"+json["id"]+"']").find('.public-note-title').text(json["note_title"])
-                        $("div[data-id='"+json["id"]+"']").find('.public-note-body').html('<pre>' + json["note_body"] + '</pre>');
-                        $("div[data-id='"+json["id"]+"']").find('.public-notes-created-time').text('now')
-                        // if it has just been made public, add note public list
-                        if (json.is_public == 1 && wasPublic == 0) {
-                            var $newElem = ' \
-                                <div class="panel panel-default individual-public-note-container" data-id="'+json["id"]+'"> \
-                                    <div class="panel-heading public-note-head"> \
-                                        <span class="public-note-title">'+json["note_title"]+'</span> \
-                                        <span class="pull-right "> \
-                                            <span class="public-notes-created-time">now</span> \
-                                            <i class="glyphicon glyphicon-chevron-down public-note-icon"></i> \
-                                        </span> \
-                                    </div> \
-                                    <div class="panel-body public-note-body"> \
-                                        <pre>'+json["note_body"]+'</pre> \
-                                    </div> \
-                                </div> \
-                            ';
-                            $($newElem).prependTo('.public-note-container');
-                            $('.public-note-body').hide();
-                        } else if (json.is_public == 0) {
+                        if (json.is_public == 0) {
                             // not public so remove
                             $('div[data-id = "' + json['id'] + '"]').remove();
                         }
                     }
                 });
             });
+
+            // check server for public notes every 30 seconds
+            setInterval(function() {
+                var url = decodeURI("{{ URL::route('note.public.recent') }}");
+                url = url.replace('{id}', moduleID);
+
+                $.ajax({
+                    type: "GET",
+                    url: url,
+
+                    success: function (json) {
+                        $.each(json, function(index, val) {
+                            //remove all of the ones here
+                            $('div[data-id = "' + json[index]['id'] + '"]').remove();
+
+                            // re-add public ones
+                            if(json[index]['is_public']) {
+                                var $newElem = ' \
+                                    <div class="panel panel-default individual-public-note-container" data-id="'+json[index]["id"]+'"> \
+                                        <div class="panel-heading public-note-head"> \
+                                            <span class="public-note-title">'+json[index]["note_title"]+'</span> \
+                                            <span class="pull-right "> \
+                                                <span class="public-notes-created-time">'+json[index]["diffForHumans"]+'</span> \
+                                                <i class="glyphicon glyphicon-chevron-down public-note-icon"></i> \
+                                            </span> \
+                                        </div> \
+                                        <div class="panel-body public-note-body"> \
+                                            <pre>'+json[index]["note_body"]+'</pre> \
+                                        </div> \
+                                    </div> \
+                                ';
+                                $($newElem).prependTo('.public-note-container');
+                            }
+                        });
+                    $('.public-note-body').hide();
+                    }
+                });
+            }, 1e3 * 30);
 
             // used to edit the selected note
             $('#edit-button').click(function () {
@@ -215,10 +254,11 @@
                 $('#note-form input[name = "noteTags"]').removeAttr('disabled').val('');
                 $('#note-form input[name = "isPublic"]').removeAttr('disabled').prop('checked', false);
 
-                // show correct save button
+                // show correct buttons
                 $('#note-save').hide();
                 $('#new-note-save').show();
                 $('#edit-button').hide();
+                $('#delete-button').hide();
                 // change heading
                 $('#note-heading').text('New Note');
             });
@@ -237,7 +277,7 @@
                         note_body: $('#noteBody').val(),
                         note_tags: $('#noteTags').val(),
                         is_public: $('#isPublic').is(':checked') ? 1 : 0,
-                        module_id: {{$module->id}},
+                        module_id: moduleID,
                         user_id: {{Auth::user()->id}}
                     },
 
@@ -259,28 +299,6 @@
 
                         // change title
                         $('#note-heading').text('Edit Note');
-
-                        // if it is public add it to public note list
-                        if (json.is_public == 1) {
-                            var $newElem = ' \
-                                <div class="panel panel-default individual-public-note-container" data-id="'+json["id"]+'"> \
-                                    <div class="panel-heading public-note-head"> \
-                                        <span class="public-note-title">'+json["note_title"]+'</span> \
-                                        <span class="pull-right "> \
-                                            <span class="public-notes-created-time">now</span> \
-                                            <i class="glyphicon glyphicon-chevron-down public-note-icon"></i> \
-                                        </span> \
-                                    </div> \
-                                    <div class="panel-body public-note-body"> \
-                                        <pre>'+json["note_body"]+'</pre> \
-                                    </div> \
-                                </div> \
-                            ';
-                            $($newElem).prependTo('.public-note-container');
-                            $('.public-note-body').hide();
-                        } else {
-                            $('div[data-id = "' + json['id'] + '"]').remove();
-                        }
 
                         // disable form
                         $('#note-form input[name = "noteTitle"]').prop('disabled', true);
@@ -311,8 +329,6 @@
                         url: url,
                         type: 'DELETE',
                         success: function(id) {
-                            console.log('success');
-
                             // remove from note-list
                             $('a[data-id = "' + id + '"]').parent().slideUp(500, function() {
                                 $(this).remove();
@@ -348,7 +364,7 @@
                 e.preventDefault();
 
                 var url = decodeURI("{{ URL::route('note.search') }}");
-                url = url.replace('{id}', {{$module->id}});
+                url = url.replace('{id}', moduleID);
 
                 var $this = $(this);
 
@@ -440,7 +456,7 @@
                 e.preventDefault();
 
                 var url = decodeURI("{{ URL::route('announcement.new') }}");
-                url = url.replace('{id}', {{$module->id}});
+                url = url.replace('{id}', moduleID);
 
                 var $this = $(this);
 
@@ -449,7 +465,7 @@
                         type: "POST",
                         url: url,
                         data: {
-                            module_id: {{$module->id}},
+                            module_id: moduleID,
                             announcement_body: $('#announcement').val(),
                             user_id: {{ Auth::user()->id }}
                         },
