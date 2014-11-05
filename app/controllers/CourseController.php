@@ -39,17 +39,17 @@ class CourseController extends \BaseController {
 		//$courseData = array_map("htmlentities", $courseData);
 
 		$validator = Validator::make($courseData, [
-		    'course_name' => 'required'
+		    'course_name' => 'required|unique:courses,course_name'
 		]);
 
 		if ($validator->fails()) {
-		    return Redirect::route('viewAdmin')
-		        ->with('flash_error', $validator->messages());
-		}
-		else {
-			Course::create($courseData);
-		    return Redirect::route('viewAdmin')
-		        ->with('success', 'New course <strong>'. $courseData["course_name"] .'</strong> created.');
+            return Response::json([
+                'success' => false,
+                'errors' => $validator->getMessageBag()->toArray()
+                ], 400);
+        } else {
+			$course = Course::create($courseData);
+		    return $course;
 		}
 	}
 

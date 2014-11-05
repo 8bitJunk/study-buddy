@@ -55,7 +55,10 @@ class UserController extends \BaseController {
         ]);
 
         if ($validator->fails()) {
-            return $validator->messages();
+            return Response::json([
+                'success' => false,
+                'errors' => $validator->getMessageBag()->toArray()
+                ], 400);
         } else {
             $userData['password'] = Hash::make($userData['password']);
             $user = User::create($userData);

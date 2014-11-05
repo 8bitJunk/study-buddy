@@ -6,17 +6,12 @@
 
 @section('content')
 
-@if(Session::has('success'))
-    <div class="alert alert-success alert-dismissible" role="alert">
-        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <strong>Success: </strong> {{ Session::get('success') }}
-    </div>
-@elseif(Session::has('flash_error'))
-    <div class="alert alert-danger alert-dismissible" role="alert">
-        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <strong>Error: </strong> {{ Session::get('flash_error') }}
-    </div>
-@endif
+<!-- dynamically populated response message -->
+<div class="alert alert-dismissible" id="response-message" role="alert">
+  <button type="button" class="close" ><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+  <strong id="message-type"></strong><span id="message-text"></span>
+</div>
+
 <div class="row">
     <div class="col-sm-2">
         <h2 class="hidden-xs"><br /></h2>
@@ -55,11 +50,25 @@
     <script type="text/javascript" src="/plugins/multiselect.js/js/jquery.multi-select.js"></script>
     <script type="text/javascript">
         $(function() {
-            // hide user creation success message on page load.
-            $('#success-message').hide();
+            // hide ajax response message on page load.
+            $('#response-message').hide();
 
             // set up success alert to diaply later.
             $('#keep-order').multiSelect({ keepOrder: true });
+
+            // hide the response message when user clicks close button.
+            $('.alert .close').on('click', function(e) {
+                $(this).parent().hide();
+            });
+
+            // function to show response message.
+            function showMessage(colour, type, text){
+                $('#response-message').removeClass();
+                $('#response-message').addClass('alert alert-dismissible alert-'+ colour);
+                $('#message-type').text(type + ': ');
+                $('#message-text').html(text);
+                $('#response-message').show();
+            }
 
             // adding a new user, ajax.
             $('#admin-user-add').click(function(e) {
@@ -91,14 +100,77 @@
                         $('#keep-order').multiSelect('refresh');
 
                         // display success message.
-                        $('#success-message').show();
+                        var message = "New user <strong>" + json['name'] + "</strong> created."
+                        showMessage('success', 'Success', message);
+                    },
+
+                    error: function(json) {
+                        // display failure message.
+                        showMessage('danger', 'Error', 'JSON response here');
+                        console.log(json['errors']);
+                    }
+                });
+            });
+            
+            // adding a new course, ajax.
+            $('#admin-course-add').click(function(e) {
+                e.preventDefault();
+
+                $.ajax({
+                    type: "POST",
+                    url: decodeURI("{{ URL::route('course.store') }}"),
+                    data: {
+                        course_name: $('#admin-course-form input[name = "course_name"]').val(), 
+                    },
+
+                    success: function(json) {
+                        // clear form upon successful creation of new course.
+                        $('#admin-course-form input').val("");
+
+                        // display success message.
+                        var message = "New course <strong>" + json['course_name'] + "</strong> created."
+                        showMessage('success', 'Success', message);
+                    },
+
+                    error: function(json) {
+                        // display failure message.
+                        showMessage('danger', 'Error', 'JSON response here');
+                        console.log(json);
                     }
                 });
             });
 
-            // hide the success alert when user clicks close button.
-            $('.alert .close').on('click', function(e) {
-                $(this).parent().hide();
+            // adding a new module, ajax
+            $('#admin-module-add').click(function(e) {
+                e.preventDefault();
+
+                console.log($('#module_course option:selected').val());
+
+                $.ajax({
+                    type: "POST",
+                    url: decodeURI("{{ URL::route('module.store') }}"),
+                    data: {
+                        module_name: $('#admin-module-form input[name = "module_name"]').val(),
+                        module_description: $('#admin-module-form textarea[name = "module_description"]').val(),
+                        module_course: $('#module_course option:selected').val()
+                    },
+
+                    success: function(json) {
+                        // clear form upon successful creation of new module.
+                        $('#admin-module-form input[name = "module_name"]').val("");
+                        $('#admin-module-form textarea[name = "module_description"]').val("");
+
+                         // display success message.
+                        var message = "New module <strong>" + json['module_name'] + "</strong> created."
+                        showMessage('success', 'Success', message);
+                    },
+
+                    error: function(json) {
+                        // display failure message.
+                        showMessage('danger', 'Error', 'JSON response here');
+                        console.log(json['errors']);
+                    }
+                });
             });
 
         });

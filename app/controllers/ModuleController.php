@@ -42,14 +42,18 @@ class ModuleController extends \BaseController {
         ]);
 
         if ($validator->fails()) {
-            return Redirect::route('viewAdmin')
-                ->with('flash_error', $validator->messages());
+            return Response::json([
+                'success' => false,
+                'errors' => $validator->getMessageBag()->toArray()
+                ], 400);
         } else {
             $module = Module::create($moduleData);
             DB::table('course_module')->insert([
                 'course_id' => $course_module['module_course'],
                 'module_id' => $module->id
             ]);
+
+            return $module;
         }
     }
 
