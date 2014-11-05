@@ -126,6 +126,7 @@
                     success: function(json) {
                         // clear form upon successful creation of new course.
                         $('#admin-course-form input').val("");
+                        $('<option value="'+ json["id"] +'">'+ json["course_name"] +'</option>').appendTo('#module_course')
 
                         // display success message.
                         var message = "New course <strong>" + json['course_name'] + "</strong> created."
