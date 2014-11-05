@@ -1,11 +1,6 @@
 A man must know he is thirsty before he will drink.
 The cornfield of the DOM.
-Clean code, clean mind.
-Sanitise for the domain.
-git push origin +5e4308b:master
 Everyone needs a 30 dimensional array.
 Nothing works.
 Save it as what??
-Frameworks are god's gift to the Earth
-A stitch in time saves nine.
-Less haste, more speed.
+Ok, fine...
