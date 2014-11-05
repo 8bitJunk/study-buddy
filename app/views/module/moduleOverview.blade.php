@@ -254,10 +254,11 @@
                 $('#note-form input[name = "noteTags"]').removeAttr('disabled').val('');
                 $('#note-form input[name = "isPublic"]').removeAttr('disabled').prop('checked', false);
 
-                // show correct save button
+                // show correct buttons
                 $('#note-save').hide();
                 $('#new-note-save').show();
                 $('#edit-button').hide();
+                $('#delete-button').hide();
                 // change heading
                 $('#note-heading').text('New Note');
             });
