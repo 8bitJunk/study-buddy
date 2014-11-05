@@ -84,6 +84,27 @@
 
             window.routeLink = "{{{ URL::route('note.json') }}}";
 
+            // note states
+            // show create note - clicked create button
+            function showCreateNote() {
+
+            }
+
+            // show disabled note - clicked on link in note list
+            function showDisabledNote() {
+
+            }
+
+            // show editing note - clicked edit note
+            function showEditingNote() {
+
+            }
+
+            // show empty disabled form - clicked delete note
+            function showEmptyDisabledForm() {
+
+            }
+
             // ajax for notes
             $('#note-list, #note-search-results').on('click', '.note-loader', function(e) {
                 e.preventDefault();
@@ -306,8 +327,6 @@
                         url: url,
                         type: 'DELETE',
                         success: function(id) {
-                            console.log('success');
-
                             // remove from note-list
                             $('a[data-id = "' + id + '"]').parent().slideUp(500, function() {
                                 $(this).remove();
