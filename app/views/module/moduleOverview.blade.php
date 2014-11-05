@@ -162,29 +162,7 @@
                         $('#delete-button').hide();
                         $('#note-heading').text('Edit Note');
 
-                        //if it exists in the public notes already, update info
-                        $("div[data-id='"+json["id"]+"']").find('.public-note-title').text(json["note_title"])
-                        $("div[data-id='"+json["id"]+"']").find('.public-note-body').html('<pre>' + json["note_body"] + '</pre>');
-                        $("div[data-id='"+json["id"]+"']").find('.public-notes-created-time').text('now')
-                        // if it has just been made public, add note public list
-                        if (json.is_public == 1 && wasPublic == 0) {
-                            var $newElem = ' \
-                                <div class="panel panel-default individual-public-note-container" data-id="'+json["id"]+'"> \
-                                    <div class="panel-heading public-note-head"> \
-                                        <span class="public-note-title">'+json["note_title"]+'</span> \
-                                        <span class="pull-right "> \
-                                            <span class="public-notes-created-time">now</span> \
-                                            <i class="glyphicon glyphicon-chevron-down public-note-icon"></i> \
-                                        </span> \
-                                    </div> \
-                                    <div class="panel-body public-note-body"> \
-                                        <pre>'+json["note_body"]+'</pre> \
-                                    </div> \
-                                </div> \
-                            ';
-                            $($newElem).prependTo('.public-note-container');
-                            $('.public-note-body').hide();
-                        } else if (json.is_public == 0) {
+                        if (json.is_public == 0) {
                             // not public so remove
                             $('div[data-id = "' + json['id'] + '"]').remove();
                         }
@@ -204,7 +182,6 @@
 
                     success: function (json) {
                         $.each(json, function(index, val) {
-                            console.log('zxc');
                             //remove all of the ones here
                             $('div[data-id = "' + json[index]['id'] + '"]').remove();
 
@@ -299,28 +276,6 @@
 
                         // change title
                         $('#note-heading').text('Edit Note');
-
-                        // if it is public add it to public note list
-                        if (json.is_public == 1) {
-                            var $newElem = ' \
-                                <div class="panel panel-default individual-public-note-container" data-id="'+json["id"]+'"> \
-                                    <div class="panel-heading public-note-head"> \
-                                        <span class="public-note-title">'+json["note_title"]+'</span> \
-                                        <span class="pull-right "> \
-                                            <span class="public-notes-created-time">now</span> \
-                                            <i class="glyphicon glyphicon-chevron-down public-note-icon"></i> \
-                                        </span> \
-                                    </div> \
-                                    <div class="panel-body public-note-body"> \
-                                        <pre>'+json["note_body"]+'</pre> \
-                                    </div> \
-                                </div> \
-                            ';
-                            $($newElem).prependTo('.public-note-container');
-                            $('.public-note-body').hide();
-                        } else {
-                            $('div[data-id = "' + json['id'] + '"]').remove();
-                        }
 
                         // disable form
                         $('#note-form input[name = "noteTitle"]').prop('disabled', true);

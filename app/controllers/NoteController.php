@@ -38,9 +38,6 @@ class NoteController extends \BaseController {
             'is_public'
         );
 
-
-        // $noteData = array_map("htmlentities", $noteData);
-
         $validator = Validator::make($noteData, [
             'note_title' => 'required',
             'note_body' => 'required'
@@ -66,6 +63,11 @@ class NoteController extends \BaseController {
             ->get();
 
         foreach($recentPublicNotes as $note) {
+            // sanitize the message
+            $note['note_title'] = htmlentities($note['note_title']);
+            $note['note_body'] = htmlentities($note['note_body']);
+
+            // used to print the diff for humans in jquery
             $note['diffForHumans'] = $note->updated_at->diffForHumans();
         }
 
@@ -92,7 +94,6 @@ class NoteController extends \BaseController {
             'user_id'
         );
 
-        // $noteData = array_map("htmlentities", $noteData);
 
         $validator = Validator::make($noteData, [
             'note_title' => 'required',
@@ -104,6 +105,10 @@ class NoteController extends \BaseController {
         }
         else {
             $note = Note::create($noteData);
+            // sanitize
+            $note['note_title'] = htmlentities($note['note_title']);
+            $note['note_body'] = htmlentities($note['note_body']);
+
             return $note;
         }
     }
