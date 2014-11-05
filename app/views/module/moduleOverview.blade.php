@@ -192,6 +192,25 @@
                 });
             });
 
+            // check server for public notes every 30 seconds
+            setInterval(function() {
+                var moduleID = {{ $module->id }};
+                var url = decodeURI("{{ URL::route('note.public.recent') }}");
+                url = url.replace('{id}', moduleID);
+
+                $.ajax({
+                    type: "GET",
+                    url: url,
+
+                    success: function (json) {
+                        //remove all of the ones here
+
+                        // re-add public ones
+
+                    }
+                });
+            }, 1e3 * 30);
+
             // used to edit the selected note
             $('#edit-button').click(function () {
                 // remove disabled from all fields
