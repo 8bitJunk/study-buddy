@@ -516,6 +516,9 @@
                             ';
 
                             $($newElem).prependTo('#announcement-list');
+
+                            //clear form
+                            $('#announcement').val("");
                         },
 
                         error: function(response) {
