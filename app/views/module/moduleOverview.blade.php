@@ -48,6 +48,13 @@
             // public note collapse note body on load
             $('.public-note-body').hide();
 
+            // make ':contains' insensitive
+            $.expr[":"].contains = $.expr.createPseudo(function(arg) {
+                return function( elem ) {
+                    return $(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
+                };
+            });
+
             // dragable, swapable divs
             jQuery.fn.swap = function(b){ 
                 // method from: http://blog.pengoworks.com/index.cfm/2008/9/24/A-quick-and-dirty-swap-method-for-jQuery
@@ -222,13 +229,15 @@
                                     </div> \
                                 ';
                                 $(newElem).prependTo('.public-note-container').find('.public-note-body').hide();
-                                if($('#public-note-search').val() != "" && !(.contains()))
+
+                                var searchTerm = $('#public-note-search').val();
+
+                                $('.public-note-title:not(:contains("'+searchTerm+'"))').parentsUntil('.public-note-container').hide();
                             }
                         });
-                    //$('.public-note-body').hide();
                     }
                 });
-            }, 1e3 * 30);
+            }, 1e3 * 5);
 
             // used to edit the selected note
             $('#edit-button').click(function () {
@@ -426,13 +435,6 @@
                 });
 
             }
-
-            // make ':contains' insensitive
-            $.expr[":"].contains = $.expr.createPseudo(function(arg) {
-                return function( elem ) {
-                    return $(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
-                };
-            });
 
             //search public notes
             $('#public-note-search').on('propertychange keyup input paste', function() {
