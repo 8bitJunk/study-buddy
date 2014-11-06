@@ -554,6 +554,7 @@
             // Used to display PDF in modal
             $('#material-list').on('click', '#preview-link', function() {
                 $('#preview-frame').attr('src', $(this).data('src'));
+                $('#preview-title').text($(this).data('title'));
             });
 
             $('#material-list').on('click', '.material-delete-button' ,function(e) {
