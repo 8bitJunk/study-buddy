@@ -48,6 +48,7 @@
             // public note collapse note body on load
             $('.public-note-body').hide();
 
+<<<<<<< HEAD
             // make ':contains' insensitive
             $.expr[":"].contains = $.expr.createPseudo(function(arg) {
                 return function( elem ) {
@@ -55,6 +56,7 @@
                 };
             });
 
+=======
             // hide the response message when user clicks close button.
             $('.alert .close').on('click', function(e) {
                 $(this).parent().hide();
@@ -72,6 +74,7 @@
                 $('#response-message').show();
             }
 
+>>>>>>> a7c16e5e1f84809016c4dcddf299591477bdc131
             // dragable, swapable divs
             jQuery.fn.swap = function(b){ 
                 // method from: http://blog.pengoworks.com/index.cfm/2008/9/24/A-quick-and-dirty-swap-method-for-jQuery
@@ -251,10 +254,13 @@
                                     </div> \
                                 ';
                                 $(newElem).prependTo('.public-note-container').find('.public-note-body').hide();
+<<<<<<< HEAD
 
                                 var searchTerm = $('#public-note-search').val();
 
                                 $('.public-note-title:not(:contains("'+searchTerm+'"))').parentsUntil('.public-note-container').hide();
+=======
+>>>>>>> a7c16e5e1f84809016c4dcddf299591477bdc131
                             }
                         });
                     }
