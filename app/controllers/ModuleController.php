@@ -42,10 +42,7 @@ class ModuleController extends \BaseController {
         ]);
 
         if ($validator->fails()) {
-            return Response::json([
-                'success' => false,
-                'errors' => $validator->getMessageBag()->toArray()
-                ], 400);
+            return Response::json( $validator->messages(), 400);
         } else {
             $module = Module::create($moduleData);
             DB::table('course_module')->insert([
