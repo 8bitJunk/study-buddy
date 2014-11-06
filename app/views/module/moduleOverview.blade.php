@@ -252,8 +252,9 @@
                                 ';
                                 $(newElem).prependTo('.public-note-container').find('.public-note-body').hide();
 
-                                var searchTerm = $('#public-note-search').val();
 
+                                // if the user is searching, hide if does not match search term
+                                var searchTerm = $('#public-note-search').val();
                                 $('.public-note-title:not(:contains("'+searchTerm+'"))').parentsUntil('.public-note-container').hide();
                             }
                         });
