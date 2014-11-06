@@ -1,36 +1,32 @@
 <div class="row">
     <div class="col-sm-6">
-        <div class="dragdrop">
-            <h2>Module Information
-                <span class="pull-right">
-                    @if(Auth::user()->user_level == "TEACHER")
-                        @include('module.modals.changeModuleInfoModal')
-                    @endif
-                </span>
-            </h2>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">{{{ $module->module_name }}}</h3>
-                </div>
-                <div class="panel-body">
-                    {{{ $module->module_description }}}
-                </div>
+        <h2>Module Information
+            <span class="pull-right">
+                @if(Auth::user()->user_level == "TEACHER")
+                    @include('module.modals.changeModuleInfoModal')
+                @endif
+            </span>
+        </h2>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{{ $module->module_name }}}</h3>
+            </div>
+            <div class="panel-body">
+                {{{ $module->module_description }}}
             </div>
         </div>
     </div>
     <div class="col-sm-6">
-        <div class="dragdrop">
-            <h2>Teacher Information</h2>
-            @foreach($teachersInformation as $teacherInformation)
-                <li class="list-group-item">
-                    <i class="glyphicon glyphicon-user"></i> {{ HTML::linkRoute('viewProfile', 
-                        $teacherInformation->name . " " . $teacherInformation->surname ,
-                        [$teacherInformation->id]) }}
-                    <br>
-                    <i class="glyphicon glyphicon-envelope"></i> {{ HTML::mailto($teacherInformation->email, $teacherInformation->email) }}
-                </li>
-            @endforeach
-        </div>
+        <h2>Teacher Information</h2>
+        @foreach($teachersInformation as $teacherInformation)
+            <li class="list-group-item">
+                <i class="glyphicon glyphicon-user"></i> {{ HTML::linkRoute('viewProfile', 
+                    $teacherInformation->name . " " . $teacherInformation->surname ,
+                    [$teacherInformation->id]) }}
+                <br>
+                <i class="glyphicon glyphicon-envelope"></i> {{ HTML::mailto($teacherInformation->email, $teacherInformation->email) }}
+            </li>
+        @endforeach
     </div>
 </div>
 
@@ -71,42 +67,6 @@
                 $('#message-text').html(text);
                 $('#response-message').show();
             }
-
-            // dragable, swapable divs
-            jQuery.fn.swap = function(b){ 
-                // method from: http://blog.pengoworks.com/index.cfm/2008/9/24/A-quick-and-dirty-swap-method-for-jQuery
-                b = jQuery(b)[0]; 
-                var a = this[0]; 
-                var t = a.parentNode.insertBefore(document.createTextNode(''), a); 
-                b.parentNode.insertBefore(a, b); 
-                t.parentNode.insertBefore(b, t); 
-                t.parentNode.removeChild(t); 
-                return this; 
-            };
-
-            $( ".dragdrop" ).draggable({ revert: true, helper: "clone" });
-
-            $( ".dragdrop" ).droppable({
-                accept: ".dragdrop",
-                activeClass: "ui-state-hover",
-                hoverClass: "ui-state-active",
-                drop: function( event, ui ) {
-
-                    var draggable = ui.draggable, droppable = $(this);
-                    var dragPos = draggable.position(), dropPos = droppable.position();
-                    
-                    draggable.css({
-                        left: dropPos.left+'px',
-                        top: dropPos.top+'px'
-                    });
-
-                    droppable.css({
-                        left: dragPos.left+'px',
-                        top: dragPos.top+'px'
-                    });
-                    draggable.swap(droppable);
-                }
-            });
 
             window.routeLink = "{{{ URL::route('note.json') }}}";
 
@@ -220,7 +180,7 @@
                 });
             });
 
-            // check server for public notes every 30 seconds
+            // check server for public notes every 10 seconds
             setInterval(function() {
                 var url = decodeURI("{{ URL::route('note.public.recent') }}");
                 url = url.replace('{id}', moduleID);
@@ -260,7 +220,7 @@
                         });
                     }
                 });
-            }, 1e3 * 5);
+            }, 1e3 * 10); // time in seconds
 
             // used to edit the selected note
             $('#edit-button').click(function () {
