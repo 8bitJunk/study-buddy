@@ -28,7 +28,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         $this->load('modules.announcements');
         $announcements = new Collection;
 
-        foreach ($this->modules as $module) {
+        foreach ($this->modules->reverse() as $module) {
             $announcements = $announcements->merge($module->announcements);
         }
         
