@@ -94,7 +94,7 @@
 
                     success: function(json) {
                         // clear form upon successful creation of new user.
-                        $('#admin-user-form input').val("");
+                        $('#admin-user-form input:not(#admin-user-add)').val("");
                         $('#user_level option[value="STUDENT"]').prop('selected', true);
                         $('#keep-order').multiSelect('deselect_all');
                         $('#keep-order').multiSelect('refresh');
@@ -125,7 +125,7 @@
 
                     success: function(json) {
                         // clear form upon successful creation of new course.
-                        $('#admin-course-form input').val("");
+                        $('#admin-course-form input:not(#admin-course-add)').val("");
                         $('<option value="'+ json["id"] +'">'+ json["course_name"] +'</option>').appendTo('#module_course')
 
                         // display success message.
