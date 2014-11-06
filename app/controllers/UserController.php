@@ -47,18 +47,15 @@ class UserController extends \BaseController {
         //$userData = array_map("htmlentities", $userData);
 
         $validator = Validator::make($userData, [
-            'name' => 'required|alphanum',
-            'surname' => 'required|alphanum',
+            'name' => 'required',
+            'surname' => 'required',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|alphanum|min:5',
+            'password' => 'required|min:5',
             'user_level' => 'required'
         ]);
 
         if ($validator->fails()) {
-            return Response::json([
-                'success' => false,
-                'errors' => $validator->getMessageBag()->toArray()
-                ], 400);
+            return Response::json( $validator->messages(), 400);
         } else {
             $userData['password'] = Hash::make($userData['password']);
             $user = User::create($userData);

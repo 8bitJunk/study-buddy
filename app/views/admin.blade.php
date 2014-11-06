@@ -74,8 +74,6 @@
             $('#admin-user-form').submit(function(e) {
                 e.preventDefault();
 
-                var thisForm = $(this);
-
                 // get all selected module id's and add them to the array
                 var userModules = [];
                 $(".ms-selection").find(".ms-selected").each(function(){
@@ -109,32 +107,32 @@
 
                     error: function(response) {
                         // display failure message.
-                        var json = response.responseJSON;
-                        var popoverString;
+                        // var json = response.responseJSON;
+                        // console.log(json);
+                        // var errorString;
 
-                        console.log(thisForm);
+                        // NEED TO FIX THIS LATER
 
                         // enumerate over the keys of the responseJSON
-                        for (var inputName in json){
-                           for (var i=0; i < json[inputName].length; i++){
-                                // add errors to a string
-                                popoverString += (json[inputName][i] + "\n");
-                            }
+                        // for (var inputName in json){
+                        //    for (var i=0; i < json[inputName].length; i++){
+                        //         // add errors to a string
+                        //         errorString += ("<strong>" + json[inputName] + "</strong>" + json[inputName][i] + ". ");
+                        //     }
 
-                            // set form to have error and show popover with errors
-                            // next to relevant input field.
-                            $(this).parent().addClass("has-error");
-                            $(this).find("name[" + json[inputName] + "]").addClass(' \
-                                data-container="body" \
-                                data-toggle="popover" \
-                                data-placement="left" \
-                                data-content="' + popoverString + '"'
-                            );
-                        }
+                        //     // set form to have error and show popover with errors
+                        //     // next to relevant input field.
+                        //     // $(thisForm).parent().addClass("has-error");
+                        //     // $(thisForm).find("name[" + json[inputName] + "]").addClass(' \
+                        //     //     data-container="body" \
+                        //     //     data-toggle="popover" \
+                        //     //     data-placement="left" \
+                        //     //     data-content="' + popoverString + '"'
+                        //     // );
+                        // }
 
-                        showMessage('danger', 'Error', 'JSON response here');
-                        
-                        console.log(json['responseText']);
+                        // show errors in message.
+                        showMessage('danger', 'Error', response.responseText);
                     }
                 });
             });
@@ -160,10 +158,9 @@
                         showMessage('success', 'Success', message);
                     },
 
-                    error: function(json) {
-                        // display failure message.
-                        showMessage('danger', 'Error', 'JSON response here');
-                        console.log(json);
+                    error: function(response) {
+                        // show errors in message.
+                        showMessage('danger', 'Error', response.responseText);
                     }
                 });
             });
@@ -193,10 +190,9 @@
                         showMessage('success', 'Success', message);
                     },
 
-                    error: function(json) {
-                        // display failure message.
-                        showMessage('danger', 'Error', 'JSON response here');
-                        console.log(json['errors']);
+                    error: function(response) {
+                        // show errors in message.
+                        showMessage('danger', 'Error', response.responseText);
                     }
                 });
             });
