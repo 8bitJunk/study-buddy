@@ -2,6 +2,13 @@ body {
     font-family: sans-serif;
 }
 
+/*pre {
+    background-color: white;
+    border: none;
+    font-family: sans-serif;
+    text-align: 
+}*/
+
 a:focus{
     outline: 0;
 }
@@ -117,10 +124,3 @@ hr.menu-separator {
     margin-top: 0;
     margin-bottom: 0;
 }
-
-/*
-#quote-of-the-day p::first-letter {
-    font-size: 18pt;
-    font-weight: bold;
-}
-*/
