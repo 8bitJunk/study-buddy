@@ -37,7 +37,7 @@ class ModuleController extends \BaseController {
         //$moduleData = array_map("htmlentities", $moduleData);
 
         $validator = Validator::make($moduleData, [
-            'module_name' => 'required',
+            'module_name' => 'required|unique:modules,module_name',
             'module_description' => 'required'
         ]);
 
