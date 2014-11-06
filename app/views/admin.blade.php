@@ -107,7 +107,7 @@
                     error: function(json) {
                         // display failure message.
                         showMessage('danger', 'Error', 'JSON response here');
-                        console.log(json['errors']);
+                        console.log(json['responseText']);
                     }
                 });
             });
