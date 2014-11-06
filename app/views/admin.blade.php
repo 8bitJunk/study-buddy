@@ -71,8 +71,10 @@
             }
 
             // adding a new user, ajax.
-            $('#admin-user-add').click(function(e) {
+            $('#admin-user-form').submit(function(e) {
                 e.preventDefault();
+
+                var thisForm = $(this);
 
                 // get all selected module id's and add them to the array
                 var userModules = [];
@@ -82,6 +84,7 @@
 
                 $.ajax({
                     type: "POST",
+                    datatype: "json",
                     url: decodeURI("{{ URL::route('user.store') }}"),
                     data: {
                         name: $('#admin-user-form input[name = "name"]').val(), 
@@ -104,10 +107,33 @@
                         showMessage('success', 'Success', message);
                     },
 
-                    error: function(json) {
+                    error: function(response) {
                         // display failure message.
+                        var json = response.responseJSON;
+                        var popoverString;
+
+                        console.log(thisForm);
+
+                        // enumerate over the keys of the responseJSON
+                        for (var inputName in json){
+                           for (var i=0; i < json[inputName].length; i++){
+                                // add errors to a string
+                                popoverString += (json[inputName][i] + "\n");
+                            }
+
+                            // set form to have error and show popover with errors
+                            // next to relevant input field.
+                            $(this).parent().addClass("has-error");
+                            $(this).find("name[" + json[inputName] + "]").addClass(' \
+                                data-container="body" \
+                                data-toggle="popover" \
+                                data-placement="left" \
+                                data-content="' + popoverString + '"'
+                            );
+                        }
+
                         showMessage('danger', 'Error', 'JSON response here');
-                        console.log(json['errors']);
+                        console.log(json);
                     }
                 });
             });
