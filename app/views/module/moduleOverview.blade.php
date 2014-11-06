@@ -131,11 +131,9 @@
                     }
 
                     // disable fields
-                    $('#note-form input[name = "noteTitle"]').prop('disabled', true);
-                    $('#note-form textarea[name = "noteBody"]').prop('disabled', true);
-                    $('#note-form input[name = "noteTags"]').prop('disabled', true);
-                    $('#note-form input[name = "isPublic"]').attr('disabled', true);
-                    $('#note-save').prop('disabled', true);
+                    $('#note-form input').prop('disabled', true);
+                    $('#note-form textarea').prop('disabled', true);
+                    //$('#note-save').prop('disabled', true);
 
                     // change button from delete to edit
                     $('#delete-button').hide();
@@ -209,7 +207,7 @@
 
                             // re-add public ones
                             if(json[index]['is_public']) {
-                                var $newElem = ' \
+                                var newElem = ' \
                                     <div class="panel panel-default individual-public-note-container" data-id="'+json[index]["id"]+'"> \
                                         <div class="panel-heading public-note-head"> \
                                             <span class="public-note-title">'+json[index]["note_title"]+'</span> \
@@ -223,10 +221,11 @@
                                         </div> \
                                     </div> \
                                 ';
-                                $($newElem).prependTo('.public-note-container');
+                                $(newElem).prependTo('.public-note-container').find('.public-note-body').hide();
+                                if($('#public-note-search').val() != "" && !(.contains()))
                             }
                         });
-                    $('.public-note-body').hide();
+                    //$('.public-note-body').hide();
                     }
                 });
             }, 1e3 * 30);
@@ -234,11 +233,10 @@
             // used to edit the selected note
             $('#edit-button').click(function () {
                 // remove disabled from all fields
-                $('#note-form input[name = "noteTitle"]').removeAttr('disabled').focus();
+                $('#note-form input').removeAttr('disabled');
                 $('#note-form textarea[name = "noteBody"]').removeAttr('disabled');
-                $('#note-form input[name = "noteTags"]').removeAttr('disabled');
-                $('#note-form input[name = "isPublic"]').removeAttr('disabled');
-                $('#note-save').removeAttr('disabled');
+                //$('#note-save').removeAttr('disabled');
+                $('#note-form input[name = "noteTitle"]').focus();
 
                 // show the delete button and hide this button
                 $(this).hide();
@@ -249,10 +247,11 @@
             // create a new note
             $('#create-new-button').click(function () {
                 // enable form and clear it.
-                $('#note-form input[name = "noteTitle"]').removeAttr('disabled').focus().val('');
-                $('#note-form textarea[name = "noteBody"]').removeAttr('disabled').val('');
-                $('#note-form input[name = "noteTags"]').removeAttr('disabled').val('');
-                $('#note-form input[name = "isPublic"]').removeAttr('disabled').prop('checked', false);
+                $('#note-form input:not(#new-note-save)').removeAttr('disabled').val('');
+                $('#note-form textarea').removeAttr('disabled').val('');
+                $('#new-note-save').removeAttr('disabled');
+                $('#note-form input[name = "isPublic"]').prop('checked', false);
+                $('#note-form input[name = "noteTitle"]').focus();
 
                 // show correct buttons
                 $('#note-save').hide();
@@ -301,10 +300,8 @@
                         $('#note-heading').text('Edit Note');
 
                         // disable form
-                        $('#note-form input[name = "noteTitle"]').prop('disabled', true);
-                        $('#note-form textarea[name = "noteBody"]').prop('disabled', true);
-                        $('#note-form input[name = "noteTags"]').prop('disabled', true);
-                        $('#note-form input[name = "isPublic"]').prop('disabled', true);
+                        $('#note-form input').prop('disabled', true);
+                        $('#note-form textarea').prop('disabled', true);
 
                         // get the note id and insert into form, allows user to edit
                         $('#note-form input[name="noteID"]').val(json['id']);
@@ -341,10 +338,9 @@
                             $('#edit-button').show();
 
                             // show blank, disabled note form
-                            $('#note-form input[name = "noteTitle"]').val('').prop('disabled', true);
+                            $('#note-form input').val('').prop('disabled', true);
                             $('#note-form textarea[name = "noteBody"]').val('').prop('disabled', true);
-                            $('#note-form input[name = "noteTags"]').val('').prop('disabled', true);
-                            $('#note-form input[name = "isPublic"]').prop('checked', false).prop('disabled', true);
+                            $('#note-form input[name = "isPublic"]').prop('checked', false);
 
                             // hide/show correct buttons
                             $('#new-note-save').hide();
