@@ -133,7 +133,8 @@
                         }
 
                         showMessage('danger', 'Error', 'JSON response here');
-                        console.log(json);
+                        
+                        console.log(json['responseText']);
                     }
                 });
             });
