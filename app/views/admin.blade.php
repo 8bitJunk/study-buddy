@@ -85,9 +85,9 @@
                     datatype: "json",
                     url: decodeURI("{{ URL::route('user.store') }}"),
                     data: {
-                        name: $('#admin-user-form input[name = "name"]').val(), 
-                        surname: $('#admin-user-form input[name = "surname"]').val(),
-                        email: $('#admin-user-form input[name = "email"]').val(),
+                        name: $.trim($('#admin-user-form input[name = "name"]').val()), 
+                        surname: $.trim($('#admin-user-form input[name = "surname"]').val()),
+                        email: $.trim($('#admin-user-form input[name = "email"]').val()),
                         password: $('#admin-user-form input[name = "password"]').val(),
                         user_level: $('#user_level option:selected').val(),
                         user_modules: userModules
@@ -145,13 +145,13 @@
                     type: "POST",
                     url: decodeURI("{{ URL::route('course.store') }}"),
                     data: {
-                        course_name: $('#admin-course-form input[name = "course_name"]').val(), 
+                        course_name: $.trim($('#admin-course-form input[name = "course_name"]').val()), 
                     },
 
                     success: function(json) {
                         // clear form upon successful creation of new course.
                         $('#admin-course-form input:not(#admin-course-add)').val("");
-                        $('<option value="'+ json["id"] +'">'+ json["course_name"] +'</option>').appendTo('#module_course')
+                        $('<option value="'+ json["id"] +'">'+ json["course_name"] +'</option>').appendTo('#module_course');
 
                         // display success message.
                         var message = "New course <strong>" + json['course_name'] + "</strong> created."
@@ -175,7 +175,7 @@
                     type: "POST",
                     url: decodeURI("{{ URL::route('module.store') }}"),
                     data: {
-                        module_name: $('#admin-module-form input[name = "module_name"]').val(),
+                        module_name: $.trim($('#admin-module-form input[name = "module_name"]').val()),
                         module_description: $('#admin-module-form textarea[name = "module_description"]').val(),
                         module_course: $('#module_course option:selected').val()
                     },
@@ -184,6 +184,8 @@
                         // clear form upon successful creation of new module.
                         $('#admin-module-form input[name = "module_name"]').val("");
                         $('#admin-module-form textarea[name = "module_description"]').val("");
+                        $('<option data-id="'+json["id"]+'">'+json["module_name"]+'</option>').appendTo('#keep-order');
+                        $('#keep-order').multiSelect('refresh');
 
                          // display success message.
                         var message = "New module <strong>" + json['module_name'] + "</strong> created."
