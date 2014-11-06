@@ -239,7 +239,7 @@
             // create a new note
             $('#create-new-button').click(function () {
                 // enable form and clear it.
-                $('#note-form input:not(#new-note-save #note-save)').removeAttr('disabled').val('');
+                $('#note-form input:not(#new-note-save, #note-save)').removeAttr('disabled').val('');
                 $('#note-form textarea').removeAttr('disabled').val('');
                 $('#new-note-save').removeAttr('disabled');
                 $('#note-form input[name = "isPublic"]').prop('checked', false);
