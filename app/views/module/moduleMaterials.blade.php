@@ -30,7 +30,10 @@
                     @endif
                     <a download href="{{$moduleMaterial->material_path.$moduleMaterial->material_name}}">{{ $moduleMaterial->material_name }} <span class="pull-right" id="download-link"><i class="glyphicon glyphicon-download-alt"></i> Download</span></a>
                     @if ($filetype[1] == 'pdf')
-                        <span class='pull-right' id='preview-link' data-src="{{ $moduleMaterial->material_path.$moduleMaterial->material_name }}">
+                        <span class='pull-right' id='preview-link' 
+                            data-src="{{ $moduleMaterial->material_path.$moduleMaterial->material_name }}" 
+                            data-title="{{ $moduleMaterial->material_name }}"
+                        >
                             <a href="#" data-toggle="modal" data-target="#previewMaterialModal">
                                 <i class="glyphicon glyphicon-eye-open"></i>
                                 Preview
