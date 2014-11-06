@@ -5,6 +5,13 @@
 @stop
 
 @section('content')
+
+<!-- dynamically populated response message -->
+<div class="alert alert-dismissible" id="response-message" role="alert">
+  <button type="button" class="close" ><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+  <strong id="message-type"></strong><span id="message-text"></span>
+</div>
+
 <div class="row">
     @if(Session::has('success'))
         <div class="alert alert-success alert-dismissible" role="alert">

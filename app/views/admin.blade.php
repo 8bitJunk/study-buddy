@@ -74,8 +74,6 @@
             $('#admin-user-form').submit(function(e) {
                 e.preventDefault();
 
-                var thisForm = $(this);
-
                 // get all selected module id's and add them to the array
                 var userModules = [];
                 $(".ms-selection").find(".ms-selected").each(function(){
@@ -87,9 +85,9 @@
                     datatype: "json",
                     url: decodeURI("{{ URL::route('user.store') }}"),
                     data: {
-                        name: $('#admin-user-form input[name = "name"]').val(), 
-                        surname: $('#admin-user-form input[name = "surname"]').val(),
-                        email: $('#admin-user-form input[name = "email"]').val(),
+                        name: $.trim($('#admin-user-form input[name = "name"]').val()), 
+                        surname: $.trim($('#admin-user-form input[name = "surname"]').val()),
+                        email: $.trim($('#admin-user-form input[name = "email"]').val()),
                         password: $('#admin-user-form input[name = "password"]').val(),
                         user_level: $('#user_level option:selected').val(),
                         user_modules: userModules
@@ -109,32 +107,32 @@
 
                     error: function(response) {
                         // display failure message.
-                        var json = response.responseJSON;
-                        var popoverString;
+                        // var json = response.responseJSON;
+                        // console.log(json);
+                        // var errorString;
 
-                        console.log(thisForm);
+                        // NEED TO FIX THIS LATER
 
                         // enumerate over the keys of the responseJSON
-                        for (var inputName in json){
-                           for (var i=0; i < json[inputName].length; i++){
-                                // add errors to a string
-                                popoverString += (json[inputName][i] + "\n");
-                            }
+                        // for (var inputName in json){
+                        //    for (var i=0; i < json[inputName].length; i++){
+                        //         // add errors to a string
+                        //         errorString += ("<strong>" + json[inputName] + "</strong>" + json[inputName][i] + ". ");
+                        //     }
 
-                            // set form to have error and show popover with errors
-                            // next to relevant input field.
-                            $(this).parent().addClass("has-error");
-                            $(this).find("name[" + json[inputName] + "]").addClass(' \
-                                data-container="body" \
-                                data-toggle="popover" \
-                                data-placement="left" \
-                                data-content="' + popoverString + '"'
-                            );
-                        }
+                        //     // set form to have error and show popover with errors
+                        //     // next to relevant input field.
+                        //     // $(thisForm).parent().addClass("has-error");
+                        //     // $(thisForm).find("name[" + json[inputName] + "]").addClass(' \
+                        //     //     data-container="body" \
+                        //     //     data-toggle="popover" \
+                        //     //     data-placement="left" \
+                        //     //     data-content="' + popoverString + '"'
+                        //     // );
+                        // }
 
-                        showMessage('danger', 'Error', 'JSON response here');
-                        
-                        console.log(json['responseText']);
+                        // show errors in message.
+                        showMessage('danger', 'Error', response.responseText);
                     }
                 });
             });
@@ -147,23 +145,22 @@
                     type: "POST",
                     url: decodeURI("{{ URL::route('course.store') }}"),
                     data: {
-                        course_name: $('#admin-course-form input[name = "course_name"]').val(), 
+                        course_name: $.trim($('#admin-course-form input[name = "course_name"]').val()), 
                     },
 
                     success: function(json) {
                         // clear form upon successful creation of new course.
                         $('#admin-course-form input:not(#admin-course-add)').val("");
-                        $('<option value="'+ json["id"] +'">'+ json["course_name"] +'</option>').appendTo('#module_course')
+                        $('<option value="'+ json["id"] +'">'+ json["course_name"] +'</option>').appendTo('#module_course');
 
                         // display success message.
                         var message = "New course <strong>" + json['course_name'] + "</strong> created."
                         showMessage('success', 'Success', message);
                     },
 
-                    error: function(json) {
-                        // display failure message.
-                        showMessage('danger', 'Error', 'JSON response here');
-                        console.log(json);
+                    error: function(response) {
+                        // show errors in message.
+                        showMessage('danger', 'Error', response.responseText);
                     }
                 });
             });
@@ -178,7 +175,7 @@
                     type: "POST",
                     url: decodeURI("{{ URL::route('module.store') }}"),
                     data: {
-                        module_name: $('#admin-module-form input[name = "module_name"]').val(),
+                        module_name: $.trim($('#admin-module-form input[name = "module_name"]').val()),
                         module_description: $('#admin-module-form textarea[name = "module_description"]').val(),
                         module_course: $('#module_course option:selected').val()
                     },
@@ -187,16 +184,17 @@
                         // clear form upon successful creation of new module.
                         $('#admin-module-form input[name = "module_name"]').val("");
                         $('#admin-module-form textarea[name = "module_description"]').val("");
+                        $('<option data-id="'+json["id"]+'">'+json["module_name"]+'</option>').appendTo('#keep-order');
+                        $('#keep-order').multiSelect('refresh');
 
                          // display success message.
                         var message = "New module <strong>" + json['module_name'] + "</strong> created."
                         showMessage('success', 'Success', message);
                     },
 
-                    error: function(json) {
-                        // display failure message.
-                        showMessage('danger', 'Error', 'JSON response here');
-                        console.log(json['errors']);
+                    error: function(response) {
+                        // show errors in message.
+                        showMessage('danger', 'Error', response.responseText);
                     }
                 });
             });

@@ -43,10 +43,7 @@ class CourseController extends \BaseController {
 		]);
 
 		if ($validator->fails()) {
-            return Response::json([
-                'success' => false,
-                'errors' => $validator->getMessageBag()->toArray()
-                ], 400);
+            return Response::json( $validator->messages(), 400);
         } else {
 			$course = Course::create($courseData);
 		    return $course;

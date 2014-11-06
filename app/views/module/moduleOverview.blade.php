@@ -48,6 +48,7 @@
             // public note collapse note body on load
             $('.public-note-body').hide();
 
+<<<<<<< HEAD
             // make ':contains' insensitive
             $.expr[":"].contains = $.expr.createPseudo(function(arg) {
                 return function( elem ) {
@@ -55,6 +56,25 @@
                 };
             });
 
+=======
+            // hide the response message when user clicks close button.
+            $('.alert .close').on('click', function(e) {
+                $(this).parent().hide();
+            });
+
+            // hide ajax response message on page load.
+            $('#response-message').hide();
+
+            // function to show response message.
+            function showMessage(colour, type, text){
+                $('#response-message').removeClass();
+                $('#response-message').addClass('alert alert-dismissible alert-'+ colour);
+                $('#message-type').text(type + ': ');
+                $('#message-text').html(text);
+                $('#response-message').show();
+            }
+
+>>>>>>> a7c16e5e1f84809016c4dcddf299591477bdc131
             // dragable, swapable divs
             jQuery.fn.swap = function(b){ 
                 // method from: http://blog.pengoworks.com/index.cfm/2008/9/24/A-quick-and-dirty-swap-method-for-jQuery
@@ -194,6 +214,11 @@
                             // not public so remove
                             $('div[data-id = "' + json['id'] + '"]').remove();
                         }
+                    },
+                        
+                    error: function(response) {
+                        // show errors in message.
+                        showMessage('danger', 'Error', response.responseText);
                     }
                 });
             });
@@ -229,10 +254,13 @@
                                     </div> \
                                 ';
                                 $(newElem).prependTo('.public-note-container').find('.public-note-body').hide();
+<<<<<<< HEAD
 
                                 var searchTerm = $('#public-note-search').val();
 
                                 $('.public-note-title:not(:contains("'+searchTerm+'"))').parentsUntil('.public-note-container').hide();
+=======
+>>>>>>> a7c16e5e1f84809016c4dcddf299591477bdc131
                             }
                         });
                     }
@@ -316,11 +344,16 @@
                         $('#note-form input[name="noteID"]').val(json['id']);
                         $('#new-note-save').hide();
                         $('#note-save').show();
+                    },
+
+                    error: function(response) {
+                        // show errors in message.
+                        showMessage('danger', 'Error', response.responseText);
                     }
                 });
             });
 
-            // delete button above the form
+            // delete button on note form
             $('#delete-button').click(function () {
                 // if they choose to delete the note
                 if(confirm('Are you sure you want to permanently delete this note?')){
@@ -488,6 +521,11 @@
                             ';
 
                             $($newElem).prependTo('#announcement-list');
+                        },
+
+                        error: function(response) {
+                            // show errors in message.
+                            showMessage('danger', 'Error', response.responseText);
                         }
                     });
                 }

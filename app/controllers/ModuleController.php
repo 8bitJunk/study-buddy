@@ -37,15 +37,12 @@ class ModuleController extends \BaseController {
         //$moduleData = array_map("htmlentities", $moduleData);
 
         $validator = Validator::make($moduleData, [
-            'module_name' => 'required',
+            'module_name' => 'required|unique:modules,module_name',
             'module_description' => 'required'
         ]);
 
         if ($validator->fails()) {
-            return Response::json([
-                'success' => false,
-                'errors' => $validator->getMessageBag()->toArray()
-                ], 400);
+            return Response::json( $validator->messages(), 400);
         } else {
             $module = Module::create($moduleData);
             DB::table('course_module')->insert([
