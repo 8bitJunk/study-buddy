@@ -518,7 +518,7 @@
                             $($newElem).prependTo('#announcement-list');
 
                             //clear form
-                            $('textarea[name=announcement]').val("");
+                            $('#announcement').val("");
                         },
 
                         error: function(response) {
