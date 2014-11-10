@@ -62,11 +62,23 @@
             });
 
             // function to show response message.
-            function showMessage(colour, type, text){
+            function showErrorMessage(error){
                 $('#response-message').removeClass();
-                $('#response-message').addClass('alert alert-dismissible alert-'+ colour);
-                $('#message-type').text(type + ': ');
-                $('#message-text').html(text);
+                $('#response-message').addClass('alert alert-dismissible alert-danger');
+                $('#message-type').text('Error: ');
+                var message = "";
+                for (var key in error) {
+                    message += ("<p>" + error[key] + "</p>");
+                };
+                $('#message-text').html(message);
+                $('#response-message').show();
+            }
+
+            function showSuccessMessage(message) {
+                $('#response-message').removeClass();
+                $('#response-message').addClass('alert alert-dismissible alert-success');
+                $('#message-type').text('Success: ');
+                $('#message-text').html(message);
                 $('#response-message').show();
             }
 
@@ -102,7 +114,7 @@
 
                         // display success message.
                         var message = "New user <strong>" + json['name'] + "</strong> created."
-                        showMessage('success', 'Success', message);
+                        showSuccessMessage(message);
                     },
 
                     error: function(response) {
@@ -132,7 +144,8 @@
                         // }
 
                         // show errors in message.
-                        showMessage('danger', 'Error', response.responseText);
+                        var responseText = $.parseJSON(response.responseText);
+                        showErrorMessage(responseText);
                     }
                 });
             });
@@ -155,12 +168,13 @@
 
                         // display success message.
                         var message = "New course <strong>" + json['course_name'] + "</strong> created."
-                        showMessage('success', 'Success', message);
+                        showSuccessMessage(message);
                     },
 
                     error: function(response) {
                         // show errors in message.
-                        showMessage('danger', 'Error', response.responseText);
+                        var responseText = $.parseJSON(response.responseText);
+                        showErrorMessage(responseText);
                     }
                 });
             });
@@ -189,12 +203,13 @@
 
                          // display success message.
                         var message = "New module <strong>" + json['module_name'] + "</strong> created."
-                        showMessage('success', 'Success', message);
+                        showSuccessMessage(message);
                     },
 
                     error: function(response) {
                         // show errors in message.
-                        showMessage('danger', 'Error', response.responseText);
+                        var responseText = $.parseJSON(response.responseText);
+                        showErrorMessage(responseText);
                     }
                 });
             });
