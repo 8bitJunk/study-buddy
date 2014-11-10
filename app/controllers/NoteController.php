@@ -55,7 +55,7 @@ class NoteController extends \BaseController {
     // get new public notes since x time
     public function getNewPublic($id) {
         $date = new DateTime;
-        $date->modify('-30 seconds');
+        $date->modify('-10 seconds');
         $formatted_date = $date->format('Y-m-d H:i:s');
 
         $recentPublicNotes = Note::where('updated_at','>=', $formatted_date)

@@ -120,15 +120,15 @@
                         //         errorString += ("<strong>" + json[inputName] + "</strong>" + json[inputName][i] + ". ");
                         //     }
 
-                        //     // set form to have error and show popover with errors
-                        //     // next to relevant input field.
-                        //     // $(thisForm).parent().addClass("has-error");
-                        //     // $(thisForm).find("name[" + json[inputName] + "]").addClass(' \
-                        //     //     data-container="body" \
-                        //     //     data-toggle="popover" \
-                        //     //     data-placement="left" \
-                        //     //     data-content="' + popoverString + '"'
-                        //     // );
+                            // set form to have error and show popover with errors
+                            // next to relevant input field.
+                            // $(thisForm).parent().addClass("has-error");
+                            // $(thisForm).find("name[" + json[inputName] + "]").addClass(' \
+                            //     data-container="body" \
+                            //     data-toggle="popover" \
+                            //     data-placement="left" \
+                            //     data-content="' + popoverString + '"'
+                            // );
                         // }
 
                         // show errors in message.
