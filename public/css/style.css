@@ -2,12 +2,9 @@ body {
     font-family: sans-serif;
 }
 
-/*pre {
-    background-color: white;
-    border: none;
-    font-family: sans-serif;
-    text-align: 
-}*/
+body * {
+    border-radius: 0 !important;
+}
 
 a:focus{
     outline: 0;
