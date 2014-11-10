@@ -104,7 +104,6 @@
                         user_level: $('#user_level option:selected').val(),
                         user_modules: userModules
                     },
-
                     success: function(json) {
                         // clear form upon successful creation of new user.
                         $('#admin-user-form input:not(#admin-user-add)').val("");
@@ -116,33 +115,7 @@
                         var message = "New user <strong>" + json['name'] + "</strong> created."
                         showSuccessMessage(message);
                     },
-
                     error: function(response) {
-                        // display failure message.
-                        // var json = response.responseJSON;
-                        // console.log(json);
-                        // var errorString;
-
-                        // NEED TO FIX THIS LATER
-
-                        // enumerate over the keys of the responseJSON
-                        // for (var inputName in json){
-                        //    for (var i=0; i < json[inputName].length; i++){
-                        //         // add errors to a string
-                        //         errorString += ("<strong>" + json[inputName] + "</strong>" + json[inputName][i] + ". ");
-                        //     }
-
-                            // set form to have error and show popover with errors
-                            // next to relevant input field.
-                            // $(thisForm).parent().addClass("has-error");
-                            // $(thisForm).find("name[" + json[inputName] + "]").addClass(' \
-                            //     data-container="body" \
-                            //     data-toggle="popover" \
-                            //     data-placement="left" \
-                            //     data-content="' + popoverString + '"'
-                            // );
-                        // }
-
                         // show errors in message.
                         var responseText = $.parseJSON(response.responseText);
                         showErrorMessage(responseText);
@@ -160,7 +133,6 @@
                     data: {
                         course_name: $.trim($('#admin-course-form input[name = "course_name"]').val()), 
                     },
-
                     success: function(json) {
                         // clear form upon successful creation of new course.
                         $('#admin-course-form input:not(#admin-course-add)').val("");
@@ -170,7 +142,6 @@
                         var message = "New course <strong>" + json['course_name'] + "</strong> created."
                         showSuccessMessage(message);
                     },
-
                     error: function(response) {
                         // show errors in message.
                         var responseText = $.parseJSON(response.responseText);
@@ -193,7 +164,6 @@
                         module_description: $('#admin-module-form textarea[name = "module_description"]').val(),
                         module_course: $('#module_course option:selected').val()
                     },
-
                     success: function(json) {
                         // clear form upon successful creation of new module.
                         $('#admin-module-form input[name = "module_name"]').val("");
@@ -205,7 +175,6 @@
                         var message = "New module <strong>" + json['module_name'] + "</strong> created."
                         showSuccessMessage(message);
                     },
-
                     error: function(response) {
                         // show errors in message.
                         var responseText = $.parseJSON(response.responseText);
@@ -213,7 +182,6 @@
                     }
                 });
             });
-
         });
     </script>
 @stop
