@@ -39,7 +39,7 @@
         <div class="container content">
             @yield('content')
         </div>
-    {{-- HTML::script('js/google-analytics.js'); --}}
+    {{  HTML::script('js/google-analytics.js'); }}
     </body>
     @yield('javascript')
 </html>
