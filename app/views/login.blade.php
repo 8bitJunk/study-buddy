@@ -69,7 +69,7 @@
                 </div>
             </div>
         </div>
-    {{ HTML::script('js/google-analytics.js'); }}
+    {{-- HTML::script('js/google-analytics.js'); --}}
     </body>
     {{ HTML::script('js/jquery.js') }}
     {{ HTML::script('js/bootstrap.min.js') }}
