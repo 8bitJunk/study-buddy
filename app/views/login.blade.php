@@ -3,6 +3,7 @@
         <title>login</title>
         <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
         <link rel="stylesheet" href="/css/style.css">
+        {{ HTML::script('js/google-analytics.js'); }}
     </head>
     <body>
         <div class="row">
@@ -69,7 +70,6 @@
                 </div>
             </div>
         </div>
-    {{ HTML::script('js/google-analytics.js'); }}
     </body>
     {{ HTML::script('js/jquery.js') }}
     {{ HTML::script('js/bootstrap.min.js') }}

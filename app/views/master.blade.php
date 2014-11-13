@@ -9,6 +9,7 @@
 
         {{ HTML::script('js/jquery.js') }}
         {{ HTML::script('js/bootstrap.min.js') }}
+        {{  HTML::script('js/google-analytics.js'); }}
 
     </head>
     <body>
@@ -39,7 +40,6 @@
         <div class="container content">
             @yield('content')
         </div>
-    {{  HTML::script('js/google-analytics.js'); }}
     </body>
     @yield('javascript')
 </html>
