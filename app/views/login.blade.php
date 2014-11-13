@@ -69,6 +69,7 @@
                 </div>
             </div>
         </div>
+    @include('google-analytics');
     </body>
     {{ HTML::script('js/jquery.js') }}
     {{ HTML::script('js/bootstrap.min.js') }}

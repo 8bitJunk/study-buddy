@@ -39,6 +39,7 @@
         <div class="container content">
             @yield('content')
         </div>
+    @include('google-analytics');
     </body>
     @yield('javascript')
 </html>
